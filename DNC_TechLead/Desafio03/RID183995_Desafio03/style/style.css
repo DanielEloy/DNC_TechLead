@@ -1,0 +1,156 @@
+img[alt="Logo DNC"] {
+    display: block;
+    margin-left: auto;
+    margin-right: 15%;
+    margin-top: 13px;
+    width: 80px;
+    height: auto;
+}
+
+h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 350;
+    font-size: 80px;
+    line-height: 100%;
+    letter-spacing: 0;
+    margin-left: 15%;
+    margin-bottom: 10px;
+}
+
+#btn-entrar {
+    background-color: white;
+    color: #000000;
+    border: 2px solid #000;
+    border-radius: 48px;
+    padding: 2px 15px;
+    font-size: 23px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 15%;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #05d9f5;
+}
+
+
+
+.data-criada {
+    display: inline;
+    margin: 4px 0 0 2%;
+    vertical-align: middle;
+    color: #888;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    opacity: 0.6;
+}
+
+h3 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin-left: 15%;
+    margin-bottom: 10px;
+}
+
+.btn-concluir,
+.btn-concluir1 {
+    padding: 8px 20px;
+    margin-top: 2%;
+    margin-left: 15%;
+    border-radius: 5px;
+    color: white;
+    background-color: #2D70FD
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.texto-tarefa.concluida {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.icone-concluido {
+    font-size: 22px;
+    vertical-align: middle;
+    margin-left: 8px;
+    color: #2D70FD;
+    display: none;
+}
+
+.icone-concluido.visivel {
+    display: inline;
+}
+
+.tarefa-concluida {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 3% 0;
+    color: #888;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.tarefa-concluida1>div {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    color: #888;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    opacity: 0.8;
+}
+.tarefa-concluida1 .texto,
+.tarefa-concluida .texto {
+    text-decoration: line-through;
+}
+
+.tarefa-concluida .icone {
+    color: #2D70FD;
+    font-size: 22px;
+}
+
+.tarefa-concluida .data {
+    font-size: 16px;
+    opacity: 0.7;
+    margin-left: 8px;
+}
+
+.btn-frontend {
+    border-radius: 48px;
+    border: 1px solid #2D70FD;
+    background: #fff;
+    color: #2D70FD;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    margin: 4px 0 0 15%;
+    padding: 4px 12px;
+    cursor: default;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.btn-frontend1{
+    border-radius: 48px;
+    border: 1px solid #2D70FD;
+    background: #fff;
+    color: #2D70FD;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    margin: 4px 0 0 0;
+    padding: 4px 12px;
+    cursor: default;
+    font-size: 14px;
+    vertical-align: middle;
+}
