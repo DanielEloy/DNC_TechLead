@@ -1,0 +1,381 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* Cabeçalho principal */
+.cabecalho {
+    background-color: #02A28F;
+    padding: 15px 0;
+}
+
+#texto {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    margin-left: 5%;
+    padding: 10px 0;
+}
+
+/* Layout de colunas */
+.layout-colunas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+/* Seção 1 - Destaque principal */
+.div1 {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+}
+
+.div1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.div1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1;
+}
+
+#texto-sobre-imagem {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 2;
+    color: white;
+    max-width: 90%;
+}
+
+#texto-sobre-imagem p:first-child {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+#texto-sobre-imagem h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+#texto-sobre-imagem p:last-child {
+    font-size: 0.9rem;
+}
+
+/* Seção 2 - Posts populares */
+.cabecalho1 {
+    background-color: #02A28F;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+#texto1 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+}
+
+.div2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.linha {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.linha img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.info-texto h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.info-texto p {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+
+
+/* Seção 3 - Posts recentes */
+.cabecalho2 {
+    background-color: #02A28F;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ver-todos {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+}
+
+.div3 {
+    font-family: 'Montserrat', sans-serif;
+    height: auto;
+}
+
+.posts-recentes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.post {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.post img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.post-info {
+    padding: 15px;
+}
+
+#titulo {
+    color: #02A28F;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.post h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.post p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.post p:not(.resumo, .data, #titulo) {
+    font-weight: 500;
+}
+
+.resumo {
+    margin: 10px 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.data {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+/* Seção 4 - Categorias */
+.div4 {
+    margin-top: 10px;
+}
+
+.categorias-lista {
+    list-style: none;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.categoria-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.categoria-item:last-child {
+    border-bottom: none;
+}
+
+.categoria-item span:first-child {
+    font-weight: 500;
+}
+
+.categoria-item span:last-child {
+    font-weight: 600;
+}
+
+/* Footer */
+footer.cabecalho1 {
+    margin-top: 20px;
+    border-radius: 0;
+    padding: 12px 0;
+}
+
+#texto2 {
+    font-family: Montserrat;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+/* Media Queries para telas maiores - DESKTOP */
+@media (min-width: 768px) {
+    .layout-colunas {
+        flex-direction: row;
+        padding: 30px 20px;
+    }
+    
+    .div1 {
+        height: 396px;
+        flex: 7;
+    }
+    
+    .div2 {
+        flex: 3;
+        height: 396px;
+    }
+    
+    .posts-recentes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .div3 {
+        flex: 7;
+    }
+    
+    .div4 {
+        flex: 3;
+        margin-top: 0;
+        align-self: flex-start;
+    }
+    
+    /* Correção específica para os posts recentes */
+    .post {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .post img {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+@media (min-width: 992px) {
+    #texto {
+        font-size: 1.7rem;
+    }
+    
+    .div1 {
+        height: 400px;
+    }
+    
+    .linha img {
+        width: 100px;
+        height: 70px;
+    }
+    
+    .posts-recentes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Garantir que o "Ver todos" fique alinhado à direita */
+    .cabecalho2 {
+        padding: 12px 20px;
+    }
+    
+    .ver-todos {
+        margin-left: 15px;
+    }
+}
+
+/* Ajustes para mobile */
+@media (max-width: 767px) {
+    /* Ajustes gerais para mobile */
+    .layout-colunas {
+        padding: 15px;
+    }
+    
+    .div1 {
+        height: 220px;
+    }
+    
+    #texto-sobre-imagem h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Posts populares em mobile */
+    .linha {
+        padding: 8px;
+    }
+    
+    .linha img {
+        width: 70px;
+        height: 50px;
+    }
+    
+    /* Posts recentes em mobile */
+    .post img {
+        height: 160px;
+    }
+    
+    .post h2 {
+        font-size: 1.1rem;
+    }
+    
+    .resumo {
+        font-size: 0.85rem;
+    }
+}
