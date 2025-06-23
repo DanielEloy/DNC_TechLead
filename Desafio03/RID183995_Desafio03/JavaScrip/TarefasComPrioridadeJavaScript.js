@@ -76,7 +76,28 @@ function todasConcluidas() {
   return listaDeTarefas.every(tarefa => tarefa.status === "concluída");
 }
 
+// Exemplo de uso de Promises para buscar dados
+// Esta função simula uma operação assíncrona que busca dados e retorna uma Promise
+function buscarDados() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const sucesso = true;
+      if (sucesso) {
+        resolve("Dados recebidos com sucesso!");
+      } else {
+        reject("Erro ao buscar dados.");
+      }
+    }, 5000); //5 segundos de espera para simular uma operação assíncrona
+  });
+}
 
+buscarDados()
+  .then(resultado => {
+    console.log(resultado);
+  })
+  .catch(erro => {
+    console.error(erro);
+  });
 
 // Exemplo de uso:
 console.log("Lista Inicial:", listaDeTarefas); // Exibe a lista inicial de tarefas

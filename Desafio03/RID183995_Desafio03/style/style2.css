@@ -8,14 +8,29 @@ html {
 
 body {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     background: linear-gradient(#41e5d9, #4d8fe2);
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 1rem;
-    overflow-x: hidden;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+    max-width: 50rem;
+    background: #fff;
+    border-radius: .8rem;
+    padding: 3.2rem 2.4rem;
+    position: relative;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 3.2rem;
+    margin: 0 0 1.6rem;
+    line-height: 100%;
 }
 
 .logo-container {
@@ -30,26 +45,6 @@ img[alt="Logo DNC"] {
     height: auto;
 }
 
-h1 {
-    font-weight: bold;
-    font-size: 3.2rem;
-    margin: 0 0 1.6rem;
-    line-height: 100%;
-    letter-spacing: 0;
-    margin-bottom: 10px;
-}
-
-main {
-    width: 100%;
-    max-width: 50rem;
-    background: #fff;
-    border-radius: .8rem;
-    padding: 3.2rem 2.4rem;
-    position: relative;
-    margin-top: 2rem;
-    box-sizing: border-box;
-}
-
 .criandoTodaSecao {
     margin: 0.8rem 0 1.6rem;
     min-height: 5rem;
@@ -57,29 +52,20 @@ main {
 
 .criandoTodaSecao > ul {
     padding-inline-start: 0;
-    list-style: none;
+    height: 23rem;
     overflow-y: auto;
+    list-style: none;
+    margin: 0;
 }
 
-@media (min-width: 601px) {
-    .criandoTodaSecao > ul {
-        max-height: 23rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .criandoTodaSecao > ul {
-        max-height: none;
-        overflow-y: visible;
-    }
-}
-
+/* Lista de tarefas (li) */
 .criandoTodaSecao > ul > li {
     color: #001747;
     list-style-type: none;
     padding: 1.2rem;
     font-size: 16px;
     background-color: #f0f0f0;
+    position: relative;
     margin-bottom: .8rem;
     border-radius: .4rem;
     display: grid;
@@ -96,23 +82,7 @@ main {
     transform: translateY(-2px);
 }
 
-.checkbox-label-container {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.info-tarefa {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin: 0;
-}
-
+/* Botão dentro da tarefa */
 .criandoTodaSecao > ul > li > button {
     grid-row: 1 / 3;
     grid-column: 2 / 3;
@@ -133,12 +103,28 @@ main {
     transform: scale(1.05);
 }
 
+.checkbox-label-container {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.info-tarefa {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+}
+
 .etiqueta-tarefa {
     border-radius: 48px;
     border: 1px solid #2D70FD;
     background: #fff;
     color: #2D70FD;
-    font-family: 'Rubik', sans-serif;
     font-weight: 500;
     padding: 4px 12px;
     font-size: 11px;
@@ -147,54 +133,34 @@ main {
 .data-criada {
     color: #666;
     font-size: 12px;
-    font-family: 'Rubik', sans-serif;
     opacity: 0.8;
-}
-
-#criandoTodaSecao {
-    width: 100%;
 }
 
 #criandoTodoFormulario {
     font-size: 1.6rem;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     gap: 10px;
     margin-bottom: 20px;
     box-sizing: border-box;
 }
 
-#etiquetaDeTarefa,
-.imputandoDescricao {
-    height: 4.2rem;
-    width: 100%;
-    max-width: 100%;
+#criandoTodoFormulario input {
     box-sizing: border-box;
+    height: 4.2rem;
     font-size: 1.6rem;
     border-radius: .4rem;
     border: 1px solid #d4c9c9;
     padding: 0 12px;
     font-family: 'Rubik', sans-serif;
+    flex: 1 1 100%;  /* Mobile: ocupar toda a largura */
 }
 
-#btn-entrar {
-    font-weight: bold;
-    background-color: rgb(211, 239, 255);
-    color: #000000;
-    border: 2px solid #000;
-    border-radius: 48px;
-    padding: 2px 15px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: .9rem;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
-#btn-entrar:hover {
-    background-color: #05d9f5;
-    transform: scale(1.05);
+#etiquetaDeTarefa,
+.imputandoDescricao {
+    width: 100%;
 }
 
 .btn-adicionar {
@@ -256,7 +222,7 @@ footer {
     margin-bottom: 0.8rem;
 }
 
-#btn-voltar {
+#btn-entrar, #btn-voltar {
     font-weight: bold;
     background-color: rgb(211, 239, 255);
     color: #000000;
@@ -265,16 +231,16 @@ footer {
     padding: 2px 15px;
     font-size: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    margin-top: .9rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
-#btn-voltar:hover {
+#btn-entrar:hover, #btn-voltar:hover {
     background-color: #05d9f5;
     transform: scale(1.05);
 }
 
-/* Barra de rolagem personalizada */
 ul::-webkit-scrollbar {
     width: 8px;
 }
@@ -293,48 +259,30 @@ ul::-webkit-scrollbar-thumb:hover {
     background: #2D70FD;
 }
 
-/* Tarefas concluídas */
+/* Tarefas concluídas: deixar mais apagado e riscado */
 .tarefa-concluida .checkbox-label-container label {
     text-decoration: line-through;
     color: #888;
+    opacity: 0.7;
 }
 
 .tarefa-concluida .info-tarefa {
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
-.tarefa-concluida {
-    opacity: 0.6;
-    background-color: #e9e9e9;
-}
-
-.tarefa-concluida .checkbox-label-container label {
-    text-decoration: line-through;
-    color: #888;
-}
-
-.tarefa-concluida .info-tarefa span {
-    color: #888;
-    opacity: 0.7;
-    text-decoration: line-through;
-}
-
-
-/* Responsividade */
+/* MOBILE FIRST: Ajustes para telas pequenas */
 @media (max-width: 600px) {
     main {
-        padding: 1.6rem;
+        padding: 1rem;
     }
 
     #criandoTodoFormulario {
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 1rem;
     }
 
-    #etiquetaDeTarefa,
-    .imputandoDescricao {
+    #criandoTodoFormulario input {
         width: 100%;
-        max-width: 100%;
     }
 
     .criandoTodaSecao > ul > li {
