@@ -1,5 +1,8 @@
 # cd "C:\Users\Daniel Eloy\DNC\Desafios\DNC_TechLead\Desafio04\RID183995_Desafio04\dnc-arq-daniel"
 
+base no figma para o projeto:
+https://www.figma.com/design/lzYMhJKI4i7geTOviicb0o/Projeto-React?node-id=0-1&t=vhVYrs3wmPaamWI0-0
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
