@@ -16,7 +16,7 @@
     width: 40%;
 }
 
-@midia (max-width: 768px) {
+@media (max-width: 768px) {
     .hero-text {
         width: 100%;
     }

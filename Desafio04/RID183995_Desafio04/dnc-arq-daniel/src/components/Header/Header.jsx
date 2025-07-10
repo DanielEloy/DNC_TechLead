@@ -24,7 +24,7 @@ function Header() {
                         </Button>
                     </div>
                     <nav className={`${isOpen ? 'open' : ''}`}>
-                        <Button buttonStyle="unstyled" className="monile-menu close-btn" onClick={toggleMenu}>
+                        <Button buttonStyle="unstyled" className="mobile-menu close-btn" onClick={toggleMenu}>
                             x
                         </Button>
                         <ul className="d-flex">
