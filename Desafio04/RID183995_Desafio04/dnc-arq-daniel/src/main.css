@@ -123,39 +123,58 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 16px; /* Corrigido de 90% para algo adequado */
+    padding: 0 16px;
+    max-width: 100vw; /* Evita overflow horizontal */
+    overflow-x: hidden; /* Previne rolagem horizontal */
   }
 
-  .mobile-fd-column {
+  .mobile-fd-column,
+  .d-flex {
     flex-direction: column;
+    gap: 12px; /* Adiciona espaçamento entre itens empilhados */
   }
 
+  h1 { font-size: 28px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
   h1, h2, h3 {
-    font-size: 24px;
     text-align: center;
+    line-height: 1.3; /* Melhora legibilidade */
   }
 
   p {
     font-size: 16px;
-    text-align: justify;
+    text-align: left; /* Justificado pode causar "rios" de espaço */
+    line-height: 1.5; /* Melhora leitura */
+    word-break: break-word; /* Evita overflow horizontal */
   }
 
   .form-input {
-    font-size: 18px;
+    font-size: 16px; /* iOS zoom com fontes < 16px */
+    padding: 12px;
+    min-height: 48px; /* Área de toque acessível */
   }
 
-  .d-flex {
-    flex-direction: column; /* Opcional: quebra para coluna no mobile */
+  [class*="jc-"] {
+    justify-content: center !important; /* Sobrescreve utilidades */
   }
 
-  .jc-space-between,
-  .jc-end,
-  .jc-center {
-    justify-content: center;
+  [class*="al-"] {
+    align-items: center !important;
   }
 
-  .al-end,
-  .al-center {
-    align-items: center;
+  /* Novos ajustes recomendados */
+  button, .btn {
+    min-height: 48px; /* Tamanho mínimo para toque */
+    font-size: 17px; /* Melhor visibilidade */
+  }
+
+  img, video {
+    max-width: 100%; /* Previne overflow de mídia */
+    height: auto;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%; /* Previne zoom de texto no iOS */
   }
 }
