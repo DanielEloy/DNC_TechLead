@@ -177,4 +177,64 @@
   body {
     -webkit-text-size-adjust: 100%; /* Previne zoom de texto no iOS */
   }
+
+  @media (max-width: 359px) {
+  .container {
+    padding: 0 12px;
+    max-width: 100%;
+  }
+
+  .mobile-fd-column,
+  .d-flex {
+    flex-direction: column;
+    gap: 8px; /* Espaçamento reduzido mas mantido */
+  }
+
+  h1 { font-size: 22px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 18px; }
+  h1, h2, h3 {
+    line-height: 1.25;
+    margin: 8px 0; /* Margens reduzidas */
+  }
+
+  p {
+    font-size: 15px; /* Tamanho levemente reduzido */
+    line-height: 1.4;
+    text-align: left;
+    margin: 6px 0; /* Margens menores */
+  }
+
+  .form-input {
+    font-size: 16px; /* Mantido mínimo para iOS */
+    padding: 10px;
+    min-height: 44px; /* Altura mínima acessível */
+  }
+
+  button, .btn {
+    min-height: 44px;
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  /* Ajuste de espaçamento em elementos flex */
+  .flex-item {
+    margin: 4px 0; /* Redução controlada */
+  }
+
+  /* Controle mais granular para imagens */
+  img {
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  /* Ajuste fino em utilitários */
+  [class*="jc-"] {
+    justify-content: center;
+  }
+
+  [class*="al-"] {
+    align-items: center;
+  }
+}
 }
