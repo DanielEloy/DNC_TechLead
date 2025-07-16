@@ -121,12 +121,41 @@
    justify-content: space-between;
  }
 
- @media (max-width: 768px) {
-   .container {
-     padding: 90%;
-   }
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px; /* Corrigido de 90% para algo adequado */
+  }
 
-   .mobile-fd-column {
-     flex-direction: column;
-   }
- }
+  .mobile-fd-column {
+    flex-direction: column;
+  }
+
+  h1, h2, h3 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    text-align: justify;
+  }
+
+  .form-input {
+    font-size: 18px;
+  }
+
+  .d-flex {
+    flex-direction: column; /* Opcional: quebra para coluna no mobile */
+  }
+
+  .jc-space-between,
+  .jc-end,
+  .jc-center {
+    justify-content: center;
+  }
+
+  .al-end,
+  .al-center {
+    align-items: center;
+  }
+}
