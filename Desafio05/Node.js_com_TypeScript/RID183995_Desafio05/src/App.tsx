@@ -11,7 +11,7 @@ interface TodoItem {
 function App() {
   const chaveTarefasMemoria = "tarefas"
 
-  const {theme, toggleTheme} = useTheme()
+  const { theme, toggleTheme } = useTheme()
   const [todos, setTodos] = useState<TodoItem[]>([])
   const [novoTodo, setnovoTodo] = useState<string>("")
   const [estaCarregado, setEstaCarregando] = useState<boolean>(false)
@@ -65,7 +65,7 @@ function App() {
   }, [])
 
   return (
-    <div className= {`app ${theme}`}>
+    <div className={`app ${theme}`}>
       <div className={`container ${theme}`}>
         <h1>Lista de Tarefas - {obterTarefasCompletas().length} / {todos.length}</h1>
         <div className='input-container'>
@@ -77,7 +77,7 @@ function App() {
             todos.map((todo) => (
               <li key={todo.id}>
                 <input type="checkbox" checked={todo.completado} onChange={() => marcarCompleto(todo.id)} />
-                <span style={{ textDecoration: todo.completado ? 'line-through' : 'none'}}> {todo.texto} </span>
+                <span style={{ textDecoration: todo.completado ? 'line-through' : 'none' }}> {todo.texto} </span>
                 <button onClick={() => removerTarefa(todo.id)}>Remover</button>
               </li>
             ))
