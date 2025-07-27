@@ -288,18 +288,18 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-laptop-code"></i> Desafios DNC</h1>
+            <h1><i class="fas fa-laptop-code"></i> Daniel Eloy</h1>
             <p class="subtitle">Esta página lista todos os meus projetos e desafios do curso DNC. Cada card abaixo direciona para um desafio específico.</p>
             <div class="update-info">
                 <p><i class="fas fa-sync-alt"></i> Última atualização: <span id="last-updated"></span></p>
             </div>
-            <div class="auto-update">
+          <!--   <div class="auto-update">
                 <label for="auto-update-toggle">Atualização automática:</label>
                 <label class="toggle-switch">
                     <input type="checkbox" id="auto-update-toggle" checked>
                     <span class="slider"></span>
                 </label>
-            </div>
+            </div> -->
         </header>
         
         <div class="projects-grid" id="projects-container">
@@ -319,44 +319,51 @@
         const projectsData = {
             "projects": [
                 {
-                    "name": "DNC_TECHLEAD",
+                    "name": "Porifolio",
                     "description": "Projeto principal do Tech Lead",
-                    "url": "https://dnc-techlead.vercel.app/",
+                    "src": "../",
                     "icon": "fas fa-folder-open",
                     "type": "folder"
                 },
                 {
                     "name": "Certificados",
                     "description": "Meus certificados de conclusão",
-                    "url": "https://dnc-certificados.vercel.app/",
+                    "url": "../Certificados",
                     "icon": "fas fa-certificate",
                     "type": "folder"
                 },
                 {
                     "name": "Desafio 01",
                     "description": "Primeiro desafio do curso",
-                    "url": "https://dnc-desafio01.vercel.app/",
+                    "url": "../Desafio01/Introducao_ao_Desenvolvimento_Web/RID183995_Desafio01/index.html",
                     "icon": "fas fa-code",
                     "type": "challenge"
                 },
                 {
                     "name": "Desafio 02",
                     "description": "Segundo desafio do curso",
-                    "url": "https://dnc-desafio02.vercel.app/",
+                    "url": "../Desafio02/Responsividade_CSS_com_Media_Queries/RID183995_Desafio02/index.html",
                     "icon": "fas fa-code",
                     "type": "challenge"
                 },
                 {
                     "name": "Desafio 03",
                     "description": "Terceiro desafio do curso",
-                    "url": "https://dnc-desafio03.vercel.app/",
+                    "url": "../Desafio03/Fundamentos_de_Javascript/RID183995_Desafio03/index.html",
                     "icon": "fas fa-code",
                     "type": "challenge"
                 },
                 {
                     "name": "Desafio 04",
                     "description": "Quarto desafio do curso",
-                    "url": "./DNC_TechLead/Desafio04/RID183995_Desafio04/dnc-arq-daniel",
+                    "url": "http://192.168.15.17:3000/",
+                    "icon": "fas fa-code",
+                    "type": "challenge"
+                },
+                {
+                    "name": "Desafio 05",
+                    "description": "Quinto desafio do curso",
+                    "url": "../Desafio05/Node.js_com_TypeScript/RID183995_Desafio05/index.html",
                     "icon": "fas fa-code",
                     "type": "challenge"
                 },
