@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "src": "Desafio04/React_com_JavaScript/RID183995_Desafio04/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "buildCommand": "npm install && npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/Desafio05/Node_js_com_TypeScript/RID183995_Desafio05/assets/(.*)",
+      "dest": "Desafio05/Node_js_com_TypeScript/RID183995_Desafio05/dist/assets/$1"
+    },
+    {
+      "src": "/Desafio05/Node_js_com_TypeScript/RID183995_Desafio05/(.*)",
+      "dest": "Desafio05/Node_js_com_TypeScript/RID183995_Desafio05/dist/index.html"
+    }
+  ]
+}
