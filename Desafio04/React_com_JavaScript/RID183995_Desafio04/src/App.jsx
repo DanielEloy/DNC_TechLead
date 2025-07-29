@@ -21,7 +21,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename={import.meta.env.VITE_BASE_URL || '/'}>
       <ScrollTotop />
       <Routes>
         <Route path="/" element={<Home />} />
