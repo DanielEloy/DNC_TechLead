@@ -1,139 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>RID183995_Desafio01</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <title> Escola DNC </title>
 </head>
 <body>
-    <header>
-        <div class="cabecalho">
-            <h1 id="texto">The Dev News</h1>
-        </div>
-    </header>
-    <div class="layout-colunas">
-        <div class="div1">
-            <img src="image/fundoCidade.jpg" alt="imagemCidade">
-            <div id="texto-sobre-imagem">
-                <p>opnião</p>
-                <h3>Como é ser um desenvolvedor</h3>
-                <p><b>By</b> Fabio Tetsuo</p>
-            </div>
-        </div>
-        <div class="div2">
-            <div class="cabecalho1">
-                <h3 id="texto1">Posts populares</h3>
-            </div>
-            <div class="linha">
-                <img src="image/postsPopularesImg.jpg" alt="postsPopularesImg">
-                <div class="info-texto">
-                    <h3>Desevolvimento atual</h3>
-                    <p>22 Agosto 2022</p>
-                </div>
-            </div>
-            <div class="linha">
-                <img src="image/postsPopularesImg1.jpg" alt="postsPopularesImg1">
-                <div class="info-texto">
-                    <h3>GitLab vs GitHub</h3>
-                    <p>22 Agosto 2022</p>
-                </div>
-            </div>
-            <div class="linha">
-                <img src="image/postsPopularesImg2.jpg" alt="postsPopularesImg2">
-                <div class="info-texto">
-                    <h3>Café atrapalha?</h3>
-                    <p>22 Agosto 2022</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="layout-colunas">
-        <div class="div3">
-            <div class="cabecalho2">
-                <h3 id="texto">Posts mais recentes</h3>
-                <a href="#" class="ver-todos">Ver todos</a>
-            </div>
+    <!--menu superio-->
+    <div id="menusuperior">
+        <a href="https://www.escoladnc.com.br/"> <img src="./imagens/logo.svg" id ="logo" alt="">  </a>
 
-            <div class="posts-recentes">
-                <div class="post">
-                    <img src="image/imgDiv3.jpg" alt="Desenvolvimento mobile">
-                    <div class="post-info">
-                        <p id="titulo">desenvolvimento</p>
-                        <h2>Desenvolvimento mobile</h2>
-                        <p><b>By</b> Fabio Tetsuo</p>
-                        <p class="resumo">Lorem ipsum dolor sit amet consectetur. In vitae urna commodo amet congue
-                            integer
-                            dapibus. Interdum semper mauris convallis fusce enim odio. Vitae montes ridiculus felis.</p>
-                        <p class="data">22 Agosto 2022</p>
-                    </div>
-                </div>
-                <div class="post">
-                    <img src="image/imgDiv3_1.jpg" alt="Balancear vida profissional e pessoal">
-                    <div class="post-info">
-                        <p id="titulo">saude</p>
-                        <h2>Balancear vida profissional e pessoal</h2>
-                        <p><b>By</b> Ridho Satriawan</p>
-                        <p class="resumo">Lorem ipsum dolor sit amet consectetur. Et consectetur at consectetur sed nisl
-                            tempor.</p>
-                        <p class="data">22 Agosto 2022</p>
-                    </div>
-                </div>
-                <div class="post">
-                    <img src="image/imgDiv3_2.jpg" alt="Configurando VSCode">
-                    <div class="post-info">
-                        <p id="titulo">desenvolvimento</p>
-                        <h2>Configurando VSCode</h2>
-                        <p><b>By</b> Fabio Tetsuo</p>
-                        <p class="resumo">Lorem ipsum dolor sit amet consectetur. Erat interdum tortor ac sagittis id a
-                            etiam. Tellus vitae arcu dignissim massa aliquam vel tellus. Ipsum massa arcu nulla sed
-                            purus in
-                            ac.</p>
-                        <p class="data">22 Agosto 2022</p>
-                    </div>
-                </div>
-                <div class="post">
-                    <img src="image/imgDiv3_3.jpg" alt="2 monitores ou 1 ultrawide?">
-                    <div class="post-info">
-                        <p id="titulo">produtividade</p>
-                        <h2>2 monitores ou 1 ultrawide?</h2>
-                        <p><b>By</b> Fulano da Silva</p>
-                        <p class="resumo">Lorem ipsum dolor sit amet consectetur. Arcu tellus adipiscing sagittis
-                            tristique.
-                            Eget molestie posuere enim pretium venenatis nunc ligula donec a. Velit senectus amet nulla.
-                        </p>
-                        <p class="data">22 Agosto 2022</p>
-                    </div>
-                </div>
+        <h1 id="titulo-menusuperior">Dê os primeiros passos da <br>
+            sua carreira em Tecnologia</h1>
+        <p id="texto-menusuperior">Inscreva-se no curso gratuito de Introdução à <br>
+            Tecnologia da DNC School e aprenda os principais <br>
+            fundamentos para construir experiências efetivas.</p>
+    </div>
+    <!--menu informacional-->
+    <div id="menuinformacional">
+        <p class="textoinformativo"> <img src="icones/certificado.svg" class="icones" id="certificado" alt="ErroCerificado"> Certificado de conclusão</p>
+        <p class="textoinformativo"> <img src="icones/relogio.svg" class="icones" id="relogio" alt="ErroRelogio"> 4 horas de conteúdo</p>
+        <p class="textoinformativo"> <img src="icones/camera.svg" class="icones" id="camera" alt="ErroCamera"> Aulas online gravadas</p>
+    </div>
+    <!--secao do video-->
+    <div id="secaovideo">
+        <iframe id="video" width="502" height="283" src="https://www.youtube.com/embed/ITxGkd9h4n4" title="DNC - A escola inovadora que forma profissionais de alta perfomance" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div>
+            <h1 id="titulovideo">
+                Aprenda com especialistas e <br>
+                seu primeiro projeto
+            </h1><br><br>
+            <p id="textovideo">
+                Conheça o processo de desenvolvimento e entenda como utilizar <br>
+                principais métodos e ferramentas da área para resolver <br>
+                problemas complexos.<br><br>
+                Conquiste seu certificado e desenvolva um projeto prático para <br>
+                aplicar seus conhecimentos.
+            </p>
+        </div>
+     </div>
+        <!--carrosel-->
+        <div id="carrosel">
+            <h1 id="tituloCarrosel">Mais de 500 alunos já iniciaram seus estudos</h1>
+            <!--cards-->
+            <div id="cards">
+                <img id="setaEsq" onclick="RolarParaEsquerda()" class="seta" src="./icones/setaEsq.svg" alt="ErroSetaEsq">
+                <img id="Leonardo" class="cards" src="./cards/Leonardo.svg" alt="ErroCardsLeonardp">
+                <img id="Samantha" class="cards" src="./cards/Samantha.svg" alt="ErroSamantha">
+                <img id="Bruna" class="cards" src="./cards/Bruna.svg" alt="ErroCardsBruna">
+                <img id="setaDir" onclick="RolarParaDireita()" class="seta" src="./icones/setaDir.svg" alt="ErroSetaDir">
             </div>
         </div>
-        <div class="div4">
-            <div class="cabecalho1">
-                <h3 id="texto1">Categorias</h3>
-            </div>
-            <ul class="categorias-lista">
-                <li class="categoria-item">
-                    <span>> saude</span>
-                    <span>(1)</span>
-                </li>
-                <li class="categoria-item">
-                    <span>> desenvolvimento</span>
-                    <span>(2)</span>
-                </li>
-                <li class="categoria-item">
-                    <span>> produtividade</span>
-                    <span>(2)</span>
-                </li>
-                <li class="categoria-item">
-                    <span>> opnião</span>
-                    <span>(1)</span>
-                </li>
-            </ul>
+            <!--fomulario-->
+            <div id="formulario">
+                <h1 id="tituloFomulario">Comece agora mesmo e dê o próximo passo da sua carreira</h1>
+                <form action="https://api.sheetmonkey.io/form/vEDjs288krupxDNiSLVuRo" method="post">
+                    </strong><input id="nome" placeholder="Nome e Sobrenome" name="Nome"  required><br>
+                    <input id="email" type="email" placeholder="E-mail" name="E-mail" required><br>
+                    <input id="Telefone ou Celular" type="number" placeholder="Telefone" pattern="^\+([1-9]{1}[0-9]{0,2})[-\s]?(\(?\d{1,3}\)?)[-\s]?(\d{4,5}[-\s]?\d{4})$" autoComplete="tel" name="Telefone" required><br>
+                    <input type="hidden" name="Data e hora" value="x-sheetmonkey-current-date-time" />
+                    <input type="hidden" name="IP" value="x-sheetmonkey-ip-address" /><br>
+                    <button type="submit">Acesse a ementa grátis</button>
+                    
+                </form>
         </div>
     </div>
-    </div>
-    <footer class="cabecalho1">
-        <p id="texto2">&copy; The Dev News</p>
-    </footer>
+    <script src="index.js"></script>
+</body>
 </html>
