@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+# cd Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
