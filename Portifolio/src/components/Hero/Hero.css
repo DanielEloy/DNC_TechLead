@@ -1,0 +1,130 @@
+.hero {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+  background: var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  /* background: var(--accent); */
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn.btn-primary {
+  display: inline-block;
+  padding: 12px 42px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(270deg, #13ADC7, #945DD6, #13ADC7);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+/* Efeito de hover com animação no gradiente */
+.btn.btn-primary:hover {
+  background-position: right center;
+  transform: scale(1.05);
+}
+
+/* Efeito de clique */
+.btn.btn-primary:active {
+  transform: scale(0.98);
+}
+
+
+.hero-text {
+  flex: 1;
+  padding-right: 2rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title span {
+  color: var(--primary);
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: var(--gray);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  transform: rotate(3deg);
+  transition: var(--transition);
+}
+
+.hero-image img:hover {
+  transform: rotate(0);
+}
+
+@media (max-width: 992px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-text {
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

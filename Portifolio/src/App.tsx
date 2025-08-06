@@ -1,36 +1,85 @@
-import { useContext } from 'react'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-//PAGES & COMPONETS
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
-import Projects from './pages/Projects.jsx'
-import Contact from './pages/Contact.jsx'
-import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner.jsx'
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import Projects from "./components/Projects/Projects";
+import AboutMe from "./components/AboutMe/AboutMe";
+import Contact from "./components/Contact/Contact";
+import Tecnologias from "./components/Tecnologias/Tecnologias";
 
-//UTILS
-import ScrollTotop from './utils/ScrollTop.jsx'
-import { AppContext } from './contexts/AppContext.jsx'
+// 1. Criando o tipo do contexto
+type AppContextType = {
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+};
 
+// 2. Criando o contexto
+const AppContext = createContext<AppContextType | undefined>(undefined);
 
-function App() {
-  const appContext = useContext(AppContext)
-
-  if (appContext.loading) {
-    return <LoadingSpinner />
+// 3. Criando um hook para usar o contexto
+const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext deve ser usado dentro do AppProvider");
   }
+  return context;
+};
+
+// 4. Criando o Provider
+const AppProvider = ({ children }: { children: ReactNode }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <Router basename={import.meta.env.VITE_BASE_URL || '/'}>
-      <ScrollTotop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes >
-    </Router >
-  )
+    <AppContext.Provider value={{ loading, setLoading }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+// 5. Componente principal
+function App() {
+  return (
+    <AppProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AppProvider>
+  );
 }
+
+// 6. Conteúdo da aplicação
+const AppContent = () => {
+  const { loading } = useAppContext();
+
+  return (
+    <div className="App">
+      {loading && <LoadingSpinner />}
+      <Header />
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <Projects />
+                <AboutMe />
+                <Contact />
+              </>
+            }
+          />
+          <Route path="/tecnologias" element={<Tecnologias />} />
+        </Routes>
+      </main>
+    </div>
+  );
+};
 
 export default App;

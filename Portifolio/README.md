@@ -1,5 +1,32 @@
 # React + TypeScript + Vite
 
+src/
+├── assets/
+├── components/
+│   ├── Header/
+│   │   ├── Header.tsx
+│   │   └── Header.css
+│   ├── Hero/
+│   │   ├── Hero.tsx
+│   │   └── Hero.css
+│   ├── Skills/
+│   │   ├── Skills.tsx
+│   │   └── Skills.css
+│   ├── Projects/
+│   │   ├── Projects.tsx
+│   │   └── Projects.css
+│   ├── Contact/
+│   │   ├── Contact.tsx
+│   │   └── Contact.css
+│   └── Footer/
+│       ├── Footer.tsx
+│       └── Footer.css
+├── App.css
+├── App.tsx
+├── index.css
+├── main.tsx
+└── vite-env.d.ts
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

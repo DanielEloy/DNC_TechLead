@@ -1,0 +1,36 @@
+.contact-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+  gap: 3rem;
+}
+
+.contact-info {
+  margin-top: 15%;
+  margin-bottom: 5%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.linkedin-icon img {
+  background-color: white;
+  padding: 10%;
+}
+
+#email{
+  margin-right: 20%;
+}
+
+.social-icons {
+  margin-left: auto;
+  display: flex;
+  align-items: left;
+  gap: 2.5rem;
+}
