@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
           <h1> dans_eloy@hotmail.com</h1>
         </div>
 
-        <div className="social-icons">
+        <div className="social-icons-contact">
           <a href="https://github.com/DanielEloy" target="_blank" rel="noopener noreferrer">
               <img src={iconGitHub} alt="GitHub"/>
             </a>
