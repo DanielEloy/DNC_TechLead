@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { Login, Registration, Home, Leads, Profile } from './pages'
+import { Login, Registration, Home, Leads, Profile } from './pages/Index'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/leads" element={<Leads />} />
         <Route path="/perfil" element={<Profile/>} />
-      </Routes>7
+      </Routes>
     </Router>
     ) 
   }

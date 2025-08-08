@@ -1,0 +1,4 @@
+[build]
+base = "Portifolio"
+publish = "Portifolio/dist"
+command = "npm install && npm run build"
