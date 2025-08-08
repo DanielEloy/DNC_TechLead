@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
+import { createContext, useContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";

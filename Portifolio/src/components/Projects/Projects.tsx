@@ -10,7 +10,7 @@ import Projeto6Img from "../../assets/Projeto6.png";
 const Projects: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('Todos');
 
-  const filters = [];
+  const filters: string[] = [];
 
   const projects = [
     {
