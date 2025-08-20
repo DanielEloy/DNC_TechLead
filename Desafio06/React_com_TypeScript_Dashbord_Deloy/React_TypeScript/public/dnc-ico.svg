@@ -4,6 +4,6 @@
 <pattern id="pattern0_46_3" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_46_3" transform="scale(0.03125)"/>
 </pattern>
-<image id="image0_46_3" width="32" height="32" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB4SURBVHgB7dSxDYAgEIXhd1gZZzSu4Ag6AXEFXVHt5Iy1FBAELN5XEpL7qwcQVSa+RzOcVpyO+JCKmdzazggJaPpDkcG1da97BpUxgAEM+GeAqFtQiCCB6fdRIDb0v28JkwIeMbPNKWYAAxiQJSB0tkW12LwTRbkBBiIb1wLdfZ8AAAAASUVORK5CYII="/>
+<image id="image0_46_3" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB4SURBVHgB7dSxDYAgEIXhd1gZZzSu4Ag6AXEFXVHt5Iy1FBAELN5XEpL7qwcQVSa+RzOcVpyO+JCKmdzazggJaPpDkcG1da97BpUxgAEM+GeAqFtQiCCB6fdRIDb0v28JkwIeMbPNKWYAAxiQJSB0tkW12LwTRbkBBiIb1wLdfZ8AAAAASUVORK5CYII="/>
 </defs>
 </svg>

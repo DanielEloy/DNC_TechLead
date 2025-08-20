@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "src": "Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "buildCommand": "npm install && npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript/assets/(.*)",
+      "dest": "Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript/dist/assets/$1"
+    },
+    {
+      "src": "/Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript/(.*)",
+      "dest": "Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript/dist/index.html"
+    }
+  ]
+}

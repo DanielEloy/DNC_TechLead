@@ -4,32 +4,6 @@ DNC TechLead é um repositório criado para organizar e compartilhar desafios, s
 
 ## Estrutura do Projeto
 
-## Estrutura do Projeto
-
-```
-DNC_TechLead
-├── Desafio01
-│   └── RID183995_Desafio01
-│       ├── css/
-│       ├── image/
-│       ├── index.html
-│       └── indexCard.html
-├── Desafio02
-│   └── RID183995_Desafio02
-│       ├── css/
-│       ├── image/
-│       ├── index.html
-│       └── indexCard.html
-├── Desafio03
-│   └── RID183995_Desafio03
-│       ├── JavaScrip/
-│       ├── img/
-│       ├── style/
-│       ├── index.html
-│       ├── index.js
-│       └── README.md
-└── README.md
-```
 
 ## Como Usar
 
