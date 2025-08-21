@@ -1,0 +1,25 @@
+{
+  "name": "calculetor_date",
+  "version": "1.0.0",
+  "description": "Calculates the date difference",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielEloy/DNC_TechLead.git#main"
+  },
+  "author": "Daniel Jefferson Correia Eloy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielEloy/DNC_TechLead/issues"
+  },
+  "homepage": "https://github.com/DanielEloy/DNC_TechLead/tree/main#readme",
+  "keywords": [
+    "date",
+    "calculator",
+    "difference",
+    "internationalization"
+  ]
+}
