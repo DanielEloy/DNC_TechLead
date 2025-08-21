@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Comparação de Datas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            color: white;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2575fc;
+            border-bottom: 2px solid #6a11cb;
+            padding-bottom: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        input[type="date"], input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="date"]:focus, input[type="text"]:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+        
+        button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #2575fc;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2575fc;
+        }
+        
+        .result-content {
+            line-height: 1.6;
+        }
+        
+        .language-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .language-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .lang-btn {
+            background: #2575fc;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .example-btn {
+            background: #4cd964;
+            font-size: 14px;
+            padding: 8px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .examples {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Biblioteca de Comparação de Datas</h1>
+        <p class="subtitle">Uma biblioteca JavaScript para comparar e calcular diferenças entre datas</p>
+
+        <h3><br>Para baixar usar o comando: npm install calculetor_date</h3>
+
+        <p><br>Desenvolvido por Daniel Eloy</p>
+        <p>Versão: 1.0.0</p>
+        <p>Data de Lançamento: 2023-10-01</p>
+
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">Comparador de Datas</h2>
+            
+            <div class="input-group">
+                <label for="date1">Primeira Data:</label>
+                <input type="date" id="date1" value="2023-01-01">
+            </div>
+            
+            <div class="input-group">
+                <label for="date2">Segunda Data:</label>
+                <input type="date" id="date2" value="2023-12-31">
+            </div>
+            
+            <button id="compare-btn">Comparar Datas</button>
+            
+            <div class="result">
+                <div class="result-title">Resultado:</div>
+                <div class="result-content" id="compare-result">Clique em "Comparar Datas" para ver o resultado</div>
+            </div>
+            
+            <div class="language-section">
+                <label>Idioma do resultado:</label>
+                <div class="language-buttons">
+                    <button class="lang-btn" data-lang="pt">Português</button>
+                    <button class="lang-btn" data-lang="en">English</button>
+                    <button class="lang-btn" data-lang="es">Español</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Calculadora de Datas</h2>
+            
+            <div class="input-group">
+                <label for="start-date">Data de Início:</label>
+                <input type="date" id="start-date" value="2023-01-01">
+            </div>
+            
+            <div class="input-group">
+                <label for="days-to-add">Dias para Adicionar:</label>
+                <input type="number" id="days-to-add" value="100" min="1">
+            </div>
+            
+            <button id="calculate-btn">Calcular Nova Data</button>
+            
+            <div class="result">
+                <div class="result-title">Resultado:</div>
+                <div class="result-content" id="calculate-result">Clique em "Calcular Nova Data" para ver o resultado</div>
+            </div>
+            
+            <div class="examples">
+                <button class="example-btn" data-days="7">+7 dias</button>
+                <button class="example-btn" data-days="30">+30 dias</button>
+                <button class="example-btn" data-days="90">+90 dias</button>
+                <button class="example-btn" data-days="365">+1 ano</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 - Biblioteca de Comparação de Datas | Desenvolvido com JavaScript</p>
+    </footer>
+
+    <script>
+        // Biblioteca DateComparator
+        class DateComparator {
+            constructor(date = null) {
+                this.date = date ? new Date(date) : new Date();
+            }
+
+            static from(dateString) {
+                return new DateComparator(dateString);
+            }
+
+            compare(targetDate, baseDate = null) {
+                const base = baseDate ? new Date(baseDate) : new Date();
+                const target = new Date(targetDate);
+                
+                if (isNaN(target)) {
+                    throw new Error("Data de destino inválida");
+                }
+
+                const diffMs = target - base;
+                const isPast = diffMs < 0;
+                const absDiff = Math.abs(diffMs);
+
+                return {
+                    milliseconds: absDiff,
+                    seconds: Math.floor(absDiff / 1000),
+                    minutes: Math.floor(absDiff / (1000 * 60)),
+                    hours: Math.floor(absDiff / (1000 * 60 * 60)),
+                    days: Math.floor(absDiff / (1000 * 60 * 60 * 24)),
+                    weeks: Math.floor(absDiff / (1000 * 60 * 60 * 24 * 7)),
+                    months: this._calcMonthsDiff(base, target),
+                    years: this._calcYearsDiff(base, target),
+                    
+                    isPast,
+                    isFuture: !isPast,
+                    isToday: this._isSameDay(base, target),
+                    isWeekend: this._isWeekend(target),
+                    
+                    format: (format = 'default') => this._formatDiff(absDiff, isPast, format),
+                    humanize: (lang = 'pt') => this._humanizeDiff(base, target, lang)
+                };
+            }
+
+            _calcMonthsDiff(base, target) {
+                const years = target.getFullYear() - base.getFullYear();
+                const months = target.getMonth() - base.getMonth();
+                return years * 12 + months;
+            }
+
+            _calcYearsDiff(base, target) {
+                return target.getFullYear() - base.getFullYear();
+            }
+
+            _isSameDay(date1, date2) {
+                return date1.toDateString() === date2.toDateString();
+            }
+
+            _isWeekend(date) {
+                return [0, 6].includes(date.getDay());
+            }
+
+            _formatDiff(ms, isPast, format) {
+                const formats = {
+                    short: () => {
+                        const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+                        if (days > 0) return `${days}d ${Math.floor((ms % (86400000)) / 3600000)}h`;
+                        return `${Math.floor(ms / 3600000)}h ${Math.floor((ms % 3600000) / 60000)}m`;
+                    },
+                    long: () => {
+                        const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+                        return `${days} dias, ${hours} horas, ${minutes} minutos`;
+                    },
+                    default: () => {
+                        const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        return `${days}d ${hours}h`;
+                    }
+                };
+
+                const prefix = isPast ? 'Há ' : 'Em ';
+                return prefix + (formats[format] || formats.default)();
+            }
+
+            _humanizeDiff(base, target, lang) {
+                const diff = target - base;
+                const days = Math.floor(Math.abs(diff) / (1000 * 60 * 60 * 24));
+                
+                if (lang === 'en') {
+                    if (days === 0) return diff >= 0 ? 'Today' : 'Yesterday';
+                    if (days === 1) return diff >= 0 ? 'Tomorrow' : 'Yesterday';
+                    return diff >= 0 ? `In ${days} days` : `${days} days ago`;
+                } else if (lang === 'es') {
+                    if (days === 0) return diff >= 0 ? 'Hoy' : 'Ayer';
+                    if (days === 1) return diff >= 0 ? 'Mañana' : 'Ayer';
+                    return diff >= 0 ? `En ${days} días` : `Hace ${days} días`;
+                } else {
+                    if (days === 0) return diff >= 0 ? 'Hoje' : 'Ontem';
+                    if (days === 1) return diff >= 0 ? 'Amanhã' : 'Ontem';
+                    return diff >= 0 ? `Em ${days} dias` : `Há ${days} dias`;
+                }
+            }
+
+            static isLeapYear(year) {
+                return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+            }
+
+            static addDays(date, days) {
+                const result = new Date(date);
+                result.setDate(result.getDate() + days);
+                return result;
+            }
+
+            static diffInDays(date1, date2) {
+                return Math.floor((new Date(date2) - new Date(date1)) / (1000 * 60 * 60 * 24));
+            }
+        }
+
+        // Código de inicialização e interface
+        document.addEventListener('DOMContentLoaded', function() {
+            const compareBtn = document.getElementById('compare-btn');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const exampleButtons = document.querySelectorAll('.example-btn');
+            
+            let currentLang = 'pt';
+            
+            // Evento para comparar datas
+            compareBtn.addEventListener('click', function() {
+                const date1 = document.getElementById('date1').value;
+                const date2 = document.getElementById('date2').value;
+                
+                try {
+                    const result = DateComparator.from(date1).compare(date2);
+                    
+                    let output = '';
+                    if (currentLang === 'en') {
+                        output = `Difference between dates:<br>
+                        <strong>${result.days}</strong> days, 
+                        <strong>${result.hours}</strong> hours, 
+                        <strong>${result.minutes}</strong> minutes<br><br>
+                        Formatted: <strong>${result.format('long')}</strong><br>
+                        Humanized: <strong>${result.humanize('en')}</strong><br>
+                        Is past: <strong>${result.isPast}</strong><br>
+                        Is weekend: <strong>${result.isWeekend}</strong>`;
+                    } else if (currentLang === 'es') {
+                        output = `Diferencia entre fechas:<br>
+                        <strong>${result.days}</strong> días, 
+                        <strong>${result.hours}</strong> horas, 
+                        <strong>${result.minutes}</strong> minutos<br><br>
+                        Formateado: <strong>${result.format('long')}</strong><br>
+                        Humanizado: <strong>${result.humanize('es')}</strong><br>
+                        Es pasado: <strong>${result.isPast}</strong><br>
+                        Es fin de semana: <strong>${result.isWeekend}</strong>`;
+                    } else {
+                        output = `Diferença entre datas:<br>
+                        <strong>${result.days}</strong> dias, 
+                        <strong>${result.hours}</strong> horas, 
+                        <strong>${result.minutes}</strong> minutos<br><br>
+                        Formatado: <strong>${result.format('long')}</strong><br>
+                        Humanizado: <strong>${result.humanize('pt')}</strong><br>
+                        Já passou: <strong>${result.isPast}</strong><br>
+                        É fim de semana: <strong>${result.isWeekend}</strong>`;
+                    }
+                    
+                    document.getElementById('compare-result').innerHTML = output;
+                } catch (error) {
+                    document.getElementById('compare-result').textContent = `Erro: ${error.message}`;
+                }
+            });
+            
+            // Evento para calcular nova data
+            calculateBtn.addEventListener('click', function() {
+                const startDate = document.getElementById('start-date').value;
+                const daysToAdd = parseInt(document.getElementById('days-to-add').value);
+                
+                try {
+                    const newDate = DateComparator.addDays(startDate, daysToAdd);
+                    const formattedDate = newDate.toLocaleDateString(currentLang === 'en' ? 'en-US' : (currentLang === 'es' ? 'es-ES' : 'pt-BR'));
+                    
+                    let output = '';
+                    if (currentLang === 'en') {
+                        output = `Adding <strong>${daysToAdd}</strong> days to <strong>${startDate}</strong>:<br>
+                        <strong>${formattedDate}</strong><br><br>
+                        Is leap year: <strong>${DateComparator.isLeapYear(newDate.getFullYear())}</strong><br>
+                        Is weekend: <strong>${[0, 6].includes(newDate.getDay())}</strong>`;
+                    } else if (currentLang === 'es') {
+                        output = `Agregando <strong>${daysToAdd}</strong> días a <strong>${startDate}</strong>:<br>
+                        <strong>${formattedDate}</strong><br><br>
+                        Es año bisiesto: <strong>${DateComparator.isLeapYear(newDate.getFullYear())}</strong><br>
+                        Es fin de semana: <strong>${[0, 6].includes(newDate.getDay())}</strong>`;
+                    } else {
+                        output = `Adicionando <strong>${daysToAdd}</strong> dias a <strong>${startDate}</strong>:<br>
+                        <strong>${formattedDate}</strong><br><br>
+                        É ano bissexto: <strong>${DateComparator.isLeapYear(newDate.getFullYear())}</strong><br>
+                        É fim de semana: <strong>${[0, 6].includes(newDate.getDay())}</strong>`;
+                    }
+                    
+                    document.getElementById('calculate-result').innerHTML = output;
+                } catch (error) {
+                    document.getElementById('calculate-result').textContent = `Erro: ${error.message}`;
+                }
+            });
+            
+            // Eventos para botões de idioma
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentLang = this.getAttribute('data-lang');
+                    
+                    // Atualiza os textos conforme o idioma selecionado
+                    updateLanguage(currentLang);
+                    
+                    // Dispara os eventos de clique para atualizar os resultados
+                    compareBtn.click();
+                    calculateBtn.click();
+                });
+            });
+            
+            // Eventos para botões de exemplo
+            exampleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const days = parseInt(this.getAttribute('data-days'));
+                    document.getElementById('days-to-add').value = days;
+                    calculateBtn.click();
+                });
+            });
+            
+            // Função para atualizar textos da interface conforme o idioma
+            function updateLanguage(lang) {
+                if (lang === 'en') {
+                    document.querySelector('h1').textContent = 'Date Comparison Library';
+                    document.querySelector('.subtitle').textContent = 'A JavaScript library to compare and calculate differences between dates';
+                    document.querySelectorAll('.card-title')[0].textContent = 'Date Comparator';
+                    document.querySelectorAll('.card-title')[1].textContent = 'Date Calculator';
+                    document.querySelector('label[for="date1"]').textContent = 'First Date:';
+                    document.querySelector('label[for="date2"]').textContent = 'Second Date:';
+                    document.getElementById('compare-btn').textContent = 'Compare Dates';
+                    document.querySelector('label[for="start-date"]').textContent = 'Start Date:';
+                    document.querySelector('label[for="days-to-add"]').textContent = 'Days to Add:';
+                    document.getElementById('calculate-btn').textContent = 'Calculate New Date';
+                    document.querySelector('.language-section label').textContent = 'Result language:';
+                } else if (lang === 'es') {
+                    document.querySelector('h1').textContent = 'Biblioteca de Comparación de Fechas';
+                    document.querySelector('.subtitle').textContent = 'Una biblioteca JavaScript para comparar y calcular diferencias entre fechas';
+                    document.querySelectorAll('.card-title')[0].textContent = 'Comparador de Fechas';
+                    document.querySelectorAll('.card-title')[1].textContent = 'Calculadora de Fechas';
+                    document.querySelector('label[for="date1"]').textContent = 'Primera Fecha:';
+                    document.querySelector('label[for="date2"]').textContent = 'Segunda Fecha:';
+                    document.getElementById('compare-btn').textContent = 'Comparar Fechas';
+                    document.querySelector('label[for="start-date"]').textContent = 'Fecha de Inicio:';
+                    document.querySelector('label[for="days-to-add"]').textContent = 'Días a Agregar:';
+                    document.getElementById('calculate-btn').textContent = 'Calcular Nueva Fecha';
+                    document.querySelector('.language-section label').textContent = 'Idioma del resultado:';
+                } else {
+                    document.querySelector('h1').textContent = 'Biblioteca de Comparação de Datas';
+                    document.querySelector('.subtitle').textContent = 'Uma biblioteca JavaScript para comparar e calcular diferenças entre datas';
+                    document.querySelectorAll('.card-title')[0].textContent = 'Comparador de Datas';
+                    document.querySelectorAll('.card-title')[1].textContent = 'Calculadora de Datas';
+                    document.querySelector('label[for="date1"]').textContent = 'Primeira Data:';
+                    document.querySelector('label[for="date2"]').textContent = 'Segunda Data:';
+                    document.getElementById('compare-btn').textContent = 'Comparar Datas';
+                    document.querySelector('label[for="start-date"]').textContent = 'Data de Início:';
+                    document.querySelector('label[for="days-to-add"]').textContent = 'Dias para Adicionar:';
+                    document.getElementById('calculate-btn').textContent = 'Calcular Nova Data';
+                    document.querySelector('.language-section label').textContent = 'Idioma do resultado:';
+                }
+            }
+            
+            // Inicializa a interface
+            compareBtn.click();
+            calculateBtn.click();
+        });
+    </script>
+</body>
+</html>
