@@ -13,6 +13,7 @@ export default defineConfig({
   },
   server: {
     host: true,
+    port: 3006,
   },
   optimizeDeps: {
     include: ['@emotion/styled'],
