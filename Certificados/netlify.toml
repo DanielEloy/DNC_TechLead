@@ -1,0 +1,8 @@
+[build]
+  publish = "Certificados/public"  # Pasta que será hospedada
+
+# (Opcional) Redirecionamentos se estiver usando rotas customizadas
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

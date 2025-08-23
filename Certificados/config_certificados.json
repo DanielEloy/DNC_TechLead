@@ -1,0 +1,31 @@
+{
+  "Fundamentos de Javascript.pdf": {
+    "importancia": 3,
+    "data_conclusao": "15/05/2023"
+  },
+  "Introdução ao Desenvolvimento Web.pdf": {
+    "importancia": 3,
+    "data_conclusao": "20/06/2023"
+  },
+  "Responsividade CSS com Media Queries.pdf": {
+    "importancia": 3,
+    "data_conclusao": "10/07/2023"
+  },
+  "Introdução ao Desenvolvimento Web_old.pdf": {
+    "importancia": 3,
+    "data_conclusao": "19/06/2025"
+  },
+  "Graduação em Sistemas de Informacao - Universidade Anhanguera.pdf": {
+    "importancia": 1,
+    "data_conclusao": "23/12/2022"
+  },
+  "Pós graduação Desenvolvimento de aplicações mobile - Unopar.pdf": {
+    "importancia": 2,
+    "data_conclusao": "20/12/2023"
+  },
+  "Pós graduação em Desenvolvimento Web Full Stack - Unopar .pdf": {
+    "importancia": 2,
+    "data_conclusao": "12/09/2023"
+  },
+  "_ultima_atualizacao": "22/08/2025 22:51"
+}
