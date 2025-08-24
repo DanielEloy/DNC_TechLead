@@ -2,7 +2,8 @@ import http.server
 import socketserver
 import os
 import json
-import re
+import sys
+import shutil
 from datetime import datetime
 from urllib.parse import unquote
 
@@ -10,6 +11,8 @@ PORT = 8000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PUBLIC_DIR = os.path.join(BASE_DIR, "public")
 CONFIG_FILE = os.path.join(BASE_DIR, "config_certificados.json")
+
+data_atual = datetime.now().strftime('%d/%m/%Y %H:%M')
 
 # Verificar se a pasta public existe
 if not os.path.exists(PUBLIC_DIR):
@@ -83,8 +86,8 @@ def atualizar_configuracao_com_novos_certificados():
             data_modificacao = datetime.fromtimestamp(stats.st_mtime).strftime('%d/%m/%Y')
             
             config[arquivo] = {
-                "importancia": 999,  # Importância padrão (baixa)
-                "data_conclusao": data_modificacao
+                "importancia": 3,  # Importância padrão (baixa)
+                "data_conclusao": datetime.now().strftime('%d/%m/%Y %H:%M') #data_modificacao #Data da última modificação
             }
             atualizado = True
             print(f"✅ Novo certificado adicionado à configuração: {arquivo}")
@@ -174,6 +177,47 @@ def gerar_lista_certificados():
         print(f"Erro ao gerar lista de certificados: {e}")
         return "<li>Erro ao carregar certificados</li>"
 
+def gerar_site_estatico():
+    """Gera uma versão estática do site para deploy no Netlify"""
+    # Criar diretório de build se não existir
+    build_dir = os.path.join(BASE_DIR, "build")
+    if not os.path.exists(build_dir):
+        os.makedirs(build_dir)
+    
+    # Copiar arquivos estáticos
+    if os.path.exists(PUBLIC_DIR):
+        for item in os.listdir(PUBLIC_DIR):
+            src = os.path.join(PUBLIC_DIR, item)
+            dst = os.path.join(build_dir, item)
+            if os.path.isfile(src):
+                shutil.copy2(src, dst)
+    
+    # Gerar HTML estático
+    try:
+        index_path = os.path.join(BASE_DIR, "index.html")
+        with open(index_path, 'r', encoding='utf-8') as f:
+            html_base = f.read()
+        
+        html_certificados = gerar_lista_certificados()
+        html_final = html_base.replace("<!--CERTIFICADOS-->", html_certificados)
+        html_final = html_final.replace("<!--data-atual-->", datetime.now().strftime('%d/%m/%Y %H:%M'))
+        
+        # Salvar index.html no diretório de build
+        with open(os.path.join(build_dir, "index.html"), 'w', encoding='utf-8') as f:
+            f.write(html_final)
+        
+        # Copiar CSS para o diretório de build
+        css_src = os.path.join(BASE_DIR, "style.css")
+        css_dst = os.path.join(build_dir, "style.css")
+        if os.path.exists(css_src):
+            shutil.copy2(css_src, css_dst)
+        
+        print(f"✅ Site estático gerado em: {build_dir}")
+        return True
+    except Exception as e:
+        print(f"❌ Erro ao gerar site estático: {e}")
+        return False
+
 class CertificadoHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=PUBLIC_DIR, **kwargs)
@@ -214,6 +258,7 @@ class CertificadoHandler(http.server.SimpleHTTPRequestHandler):
                     
                     html_certificados = gerar_lista_certificados()
                     html_final = html_base.replace("<!--CERTIFICADOS-->", html_certificados)
+                    html_final = html_final.replace("<!--data-atual-->", datetime.now().strftime('%d/%m/%Y %H:%M'))
                     
                     self.send_response(200)
                     self.send_header('Content-type', 'text/html; charset=utf-8')
@@ -229,16 +274,23 @@ class CertificadoHandler(http.server.SimpleHTTPRequestHandler):
 
         self.send_error(404, "Arquivo não encontrado")
 
-# Iniciar servidor
-with socketserver.TCPServer(("127.0.0.1", PORT), CertificadoHandler) as httpd:
-    print(f"✅ Servidor rodando na porta {PORT}")
-    print(f"🌐 Acesse: http://127.0.0.1:{PORT}")
-    print("📁 Diretório base:", BASE_DIR)
-    print("📁 Diretório público:", PUBLIC_DIR)
-    print("📋 Arquivo de configuração:", CONFIG_FILE)
-    print("🚀 Para parar o servidor, pressione Ctrl+C")
+if __name__ == "__main__":
+    # Verificar se é para gerar versão estática (para Netlify)
+    if "--build-static" in sys.argv:
+        print("Gerando versão estática para Netlify...")
+        sucesso = gerar_site_estatico()
+        sys.exit(0 if sucesso else 1)
     
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\n👋 Servidor encerrado")
+    # Iniciar servidor de desenvolvimento
+    with socketserver.TCPServer(("127.0.0.1", PORT), CertificadoHandler) as httpd:
+        print(f"✅ Servidor rodando na porta {PORT}")
+        print(f"🌐 Acesse: http://127.0.0.1:{PORT}")
+        print("📁 Diretório base:", BASE_DIR)
+        print("📁 Diretório público:", PUBLIC_DIR)
+        print("📋 Arquivo de configuração:", CONFIG_FILE)
+        print("🚀 Para parar o servidor, pressione Ctrl+C")
+        
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\n👋 Servidor encerrado")

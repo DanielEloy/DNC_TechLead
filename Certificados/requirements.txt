@@ -1,0 +1,2 @@
+# requirements.txt
+# Este arquivo é necessário para o Netlify instalar as dependências Python

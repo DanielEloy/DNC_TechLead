@@ -1,7 +1,10 @@
 [build]
-  publish = "Certificados/public"  # Pasta que será hospedada
+  publish = "build"
+  command = "python servidor_certificados.py --build-static"
 
-# (Opcional) Redirecionamentos se estiver usando rotas customizadas
+[build.environment]
+  PYTHON_VERSION = "3.9"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

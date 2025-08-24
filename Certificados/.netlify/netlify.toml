@@ -1,0 +1,41 @@
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "C:\\Users\\Daniel Eloy\\DNC\\Desafios\\DNC_TechLead\\Certificados\\build"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "C:\\Users\\Daniel Eloy\\DNC\\Desafios\\DNC_TechLead\\Certificados"
+command = "python servidor_certificados.py --build-static"
+
+[build.environment]
+PYTHON_VERSION = "3.9"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

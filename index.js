@@ -13,8 +13,10 @@ const projectsData = {
     {
       name: "Certificados",
       description: "Meus certificados de conclusão",
+      url: window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" 
+       ? "http://localhost:8000" : "https://seus-certificados.netlify.app",
       //uri: "http://127.0.0.1:8000/",
-      url: "./Certificados/public/index.html",
+      //url: "./Certificados/public/index.html",
       icon: "fas fa-certificate",
       type: "folder",
     },
