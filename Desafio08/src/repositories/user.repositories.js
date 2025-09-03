@@ -22,7 +22,8 @@ function createUserRepository(newUser) {
         db.run(`
             INSERT INTO users (username, email, password, avatar)
             VALUES (?, ?, ?, ?)
-        `, [username, email, password, avatar], function (err) {
+        `, 
+        [username, email, password, avatar], function (err) {
             if (err) {
                 rej(err);
             } else {

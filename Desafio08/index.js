@@ -1,29 +1,15 @@
 import express from 'express';
-import { use } from 'react';
+import userRoutes from './src/routes/user.routes.js'; 
+
 const app = express();
 const port = 3300;
-const users = [];
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //habilita o express a entender dados vindos de formulários (body)
 
-app.get("/hello", (req, res) => {
-  res.send('Hello World');
-});
+app.use('/api', userRoutes); //prefixo para todas as rotas
 
-app.post("/users", (req, res) => {
-  //console.log(req);
-  const body = req.body;
-//console.log(body);
-  users.push(body);
-  res
-  .status(201)
-  .json({ users });
-});
-
-app.use(express.urlencoded({ extended: true }));
-
-
-//app.listen(3000);
+//app.listen(3000); //caso quiser marretar a porta
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
