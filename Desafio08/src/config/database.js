@@ -2,9 +2,9 @@ import sqlite3 from 'sqlite3'
 
 const db = new sqlite3.Database('./data_base/library_db.sqlite', (err) => {
     if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err.message);
+        console.error('Error connecting to database: ', err.message);
     } else {
-        console.log('Conectado ao banco de dados SQLite.');
+        console.log('Connected to SQLite database.');
     }
 })
 
