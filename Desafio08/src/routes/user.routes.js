@@ -1,10 +1,12 @@
-import {Router} from "express"
+import { Router } from "express"
 import userControllers from "../controllers/user.controllers.js"
+import { validate } from "../middlewares/validation.middlewares.js"
+import { userSchema } from "../schema/user.schema.js" 
 
 const router = Router();
 
 // CREATE
-router.post("/users", userControllers.createUserController);
+router.post("/users", validate(userSchema) , userControllers.createUserController);
 
 // READ
 router.get("/users/:id", userControllers.getUserByIdController);

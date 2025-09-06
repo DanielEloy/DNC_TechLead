@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true })); //habilita o express a entender
 
 app.use('/api', userRoutes); //prefixo para todas as rotas
 
-//app.listen(3000); //caso quiser marretar a porta
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}` //confirma que o servidor está rodando
+  );
 });
