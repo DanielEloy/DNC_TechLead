@@ -1,10 +1,13 @@
+// user.services.js
 import userRepositories from "../repositories/user.repositories.js"
+import { generateTokenJWT } from "./auth.services.js"
 import bcrypt from 'bcrypt'
 
 // =========================
 // CREATE - Criar um novo usuário
 // =========================
 async function createUserService(newUser) {
+    newUser.email = newUser.email.toLowerCase();// Converter email para minúsculas
     const { username, email } = newUser
 
     // Verifica se já existe usuário com o mesmo username ou email
@@ -22,17 +25,17 @@ async function createUserService(newUser) {
 
     // Criptografa a senha antes de armazenar
     const hashedPassword = await bcrypt.hash(newUser.password, 10)
-
     // Cria o usuário com a senha criptografada
     const user = await userRepositories.createUserRepository({
         ...newUser,
         password: hashedPassword,
     })
     if (!user) throw new Error("Error creating user")
-
+        const token = generateTokenJWT(user.id)
     // Remove a senha antes de retornar
     const { password, ...userWithoutPassword } = user
-    return userWithoutPassword
+    
+    return { ...userWithoutPassword, token };
 }
 
 // =========================
@@ -51,32 +54,45 @@ async function getUserByIdService(id) {
 // UPDATE - Atualizar usuário
 // =========================
 async function updateUserService(id, updatedUser) {
-    const existingUser = await userRepositories.findUserByIdRepository(id)
-    if (!existingUser) throw new Error("User not found")
+    const existingUser = await userRepositories.findUserByIdRepository(id);
+    if (!existingUser) throw new Error("User not found");
+
+    // Converter email para minúsculas se estiver presente
+    if (updatedUser.email) {
+        updatedUser.email = updatedUser.email.toLowerCase();
+    }
 
     // Verifica se já existe outro usuário com mesmo username/email
     if (updatedUser.username || updatedUser.email) {
         const conflicts = await userRepositories.findByUsernameOrEmailRepository(
             updatedUser.username || "",
             updatedUser.email || ""
-        )
+        );
 
-        const hasConflict = conflicts.some(u => u.id !== id) // ignora o próprio usuário
+        const hasConflict = conflicts.some(u => u.id !== id); // ignora o próprio usuário
         if (hasConflict) {
-            throw new Error("Alert: username or email already exists")
+            throw new Error("Alert: username or email already exists");
         }
     }
 
     // Se a senha for atualizada, criptografa antes
     if (updatedUser.password) {
-        updatedUser.password = await bcrypt.hash(updatedUser.password, 10)
+        updatedUser.password = await bcrypt.hash(updatedUser.password, 10);
+    } else {
+        // Remove a senha do objeto se não foi fornecida
+        delete updatedUser.password;
     }
 
-    const user = await userRepositories.updateUserRepository(id, updatedUser)
+    const user = await userRepositories.updateUserRepository(id, updatedUser);
+
+    // Verifica se o usuário foi encontrado e atualizado
+    if (!user) {
+        throw new Error("User not found after update");
+    }
 
     // Remove a senha antes de retornar
-    const { password, ...userWithoutPassword } = user
-    return userWithoutPassword
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
 }
 
 // =========================

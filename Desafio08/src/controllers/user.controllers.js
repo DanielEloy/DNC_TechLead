@@ -1,4 +1,7 @@
+// user.controllers.js
 import userServices from "../service/user.services.js"
+import { loginService } from "../service/auth.services.js"
+import { logger } from "../utils/logger.js"
 
 // CREATE
 async function createUserController(req, res) {
@@ -7,7 +10,6 @@ async function createUserController(req, res) {
         if (!newUser.username || !newUser.email || !newUser.password) {
             return res.status(400).send({ error: "Missing required fields" })
         }
-
         const user = await userServices.createUserService(newUser)
         res.status(201).json(user)
     } catch (error) {
@@ -15,14 +17,44 @@ async function createUserController(req, res) {
             // devolve a mensagem vinda do service
             res.status(409).send({ error: error.message })
         } else {
-            console.error(error)
+            logger.error(error)
             res.status(500).send({ error: "Internal server error" })
         }
     }
 }
 
+// LOGIN
+async function loginUserController(req, res) {
+    let { email, password } = req.body;
+    
+    // Verificar se ambos email e senha foram fornecidos
+    if (!email || !password) {
+        return res.status(400).send({ 
+            error: "Email and password are required" 
+        });
+    }
+    
+    // Converter email para minúsculas
+    const normalizedEmail = email.toLowerCase();
+    
+    try {
+        const token = await loginService(normalizedEmail, password);
+        res.status(200).send({ token });
+        logger.debug(`User logged in: ${normalizedEmail}`);
+    } catch (e) {
+        // Mensagem de erro mais específica
+        const errorMessage = e.message.includes("Invalid") 
+            ? "Invalid email or password" 
+            : e.message;
+            
+        res.status(401).send({ error: errorMessage });
+        logger.warn(`Failed login attempt for email: ${normalizedEmail}, ${e.message}`);
+    }
+}
+    
 // READ
-async function getUserByIdController(req, res) {
+// Buscar usuário por ID
+async function findUserByIdController(req, res) {
     try {
         const { id } = req.params
         const user = await userServices.getUserByIdService(id)
@@ -36,6 +68,7 @@ async function getUserByIdController(req, res) {
 
 // UPDATE
 async function updateUserController(req, res) {
+    
     try {
         const { id } = req.params
         const updatedUser = req.body
@@ -68,7 +101,8 @@ async function deleteUserController(req, res) {
 }
 
 // GET ALL USERS
-async function getAllUsersController(req, res) {
+// Buscar todos os usuários
+async function findAllUsersController(req, res) {
   try {
     const users = await userServices.getAllUsersService();
     res.status(200).json(users);
@@ -81,8 +115,9 @@ async function getAllUsersController(req, res) {
 
 export default {
     createUserController,
-    getUserByIdController,
+    findUserByIdController,
     updateUserController,
     deleteUserController,
-    getAllUsersController
+    findAllUsersController,
+    loginUserController
 }

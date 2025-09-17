@@ -1,5 +1,6 @@
 // validation.middlewares.js
 import { logger } from '../utils/logger.js';
+import { z } from 'zod';
 
 const validate = (schema) => (req, res, next) => {
   try {
@@ -10,6 +11,7 @@ const validate = (schema) => (req, res, next) => {
 
     // Usamos safeParse que não lança exceção
     const result = schema.safeParse(req.body);
+  
 
     if (result.success) {
       next();
@@ -51,4 +53,37 @@ const validate = (schema) => (req, res, next) => {
   }
 };
 
-export { validate };
+// Middleware específico para validar o ID do usuário na rota
+const validateUserId = (req, res, next) => {
+  const schema = z.object({
+    id: z
+      .string()
+      .regex(/^\d+$/, "User ID must be a valid number") // se for numérico
+      .transform(Number),
+  });
+
+  const result = schema.safeParse(req.params);
+
+  if (!result.success) {
+    const formattedErrors = result.error.issues.map((issue) => ({
+      field: issue.path.join("."),
+      message: issue.message,
+      code: issue.code,
+    }));
+
+    logger.warn("UserId validation failed:", formattedErrors);
+
+    return res.status(400).json({
+      statusCode: 400,
+      message: "Bad Request",
+      error: "Validation Error",
+      details: formattedErrors,
+    });
+  }
+
+  // Substitui req.params.id pelo número já convertido
+  req.params.id = result.data.id;
+  next();
+};
+
+export { validate, validateUserId };

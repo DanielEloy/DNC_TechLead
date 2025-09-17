@@ -1,4 +1,6 @@
+//user.repositories.js
 import db from "../config/database.js";
+import { logger } from '../utils/logger.js';
 
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -10,9 +12,9 @@ db.run(`
     )
 `, (err) => {
     if (err) {
-        console.error("Error creating users table: ", err.message);
+        logger.error("Error creating users table: ", err.message);
     } else {
-        console.log("Table created successfully or already existing");
+        logger.info("Table created successfully or already existing");
     }
 });
 
@@ -44,6 +46,23 @@ function createUserRepository(newUser) {
         );
     });
 }
+
+// =========================
+// READ - Buscar por email
+// =========================
+function findByEmailRepository(email) {
+    return new Promise((res, rej) => {
+        db.get(
+            `SELECT * FROM users WHERE email = ?`,
+            [email],
+            (err, row) => {
+                if (err) rej(err);
+                else res(row);
+            }
+        );
+    });
+}
+
 
 // =========================
 // READ - Buscar por username ou email
@@ -81,28 +100,47 @@ function findUserByIdRepository(id) {
 // =========================
 // UPDATE
 // =========================
-function updateUserRepository(id, updatedUser) {
-    return new Promise((res, rej) => {
-        const { username, email, password, avatar } = updatedUser;
-        db.run(
-            `UPDATE users 
-             SET username = ?, email = ?, password = ?, avatar = ?
-             WHERE id = ?`,
-            [username, email, password, avatar, id],
-            function (err) {
-                if (err) {
-                    if (err.message.includes("UNIQUE constraint failed: users.username")) {
-                        rej(new Error("Alert: username already exists"));
-                    } else if (err.message.includes("UNIQUE constraint failed: users.email")) {
-                        rej(new Error("Alert: email already exists"));
-                    } else {
-                        rej(err);
-                    }
+function updateUserRepository(id, user) {
+    return new Promise((resolve, reject) => {
+        const fields = ["username", "email", "password", "avatar"];
+        const updates = [];
+        const values = [];
+        
+        fields.forEach((field) => {
+            if (user[field] !== undefined) {
+                updates.push(`${field} = ?`);
+                values.push(user[field]);
+            }
+        });
+        
+        if (updates.length === 0) {
+            reject(new Error("Nenhum campo válido para atualização"));
+            return;
+        }
+        
+        const query = `UPDATE users SET ${updates.join(", ")} WHERE id = ?`;
+        values.push(id);
+        
+        // Executa a atualização
+        db.run(query, values, function(error) {
+            if (error) {
+                reject(error);
+            } else {
+                // Verifica se algum registro foi atualizado
+                if (this.changes === 0) {
+                    resolve(null); // Nenhum usuário encontrado
                 } else {
-                    res({ message: "User updated", changes: this.changes });
+                    // Busca o usuário atualizado para retornar
+                    db.get("SELECT * FROM users WHERE id = ?", [id], (error, row) => {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(row); // Retorna o usuário atualizado
+                        }
+                    });
                 }
             }
-        );
+        });
     });
 }
 
@@ -140,6 +178,7 @@ function findAllUsersRepository() {
 export default {
     createUserRepository,
     findByUsernameOrEmailRepository: findUserByUsernameOrEmailRepository,
+    findByEmailRepository,
     findUserByIdRepository,
     updateUserRepository,
     findAllUsersRepository,
