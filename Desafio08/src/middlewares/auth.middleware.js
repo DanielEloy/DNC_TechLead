@@ -23,7 +23,7 @@ export function authMiddleware(req, res, next) {
     }
 
     const [schema, token] = tokenParts;
-    logger.info("Token schema:", tokenParts[0]);
+    //logger.info("Token schema:", tokenParts[0]);
     // Verificação do schema com regex (case-insensitive)
     if (!/^Bearer$/i.test(schema)) {
         logger.warn("Token malformatted - schema incorrect");
@@ -46,7 +46,7 @@ export function authMiddleware(req, res, next) {
     const firstToken = allParts.slice(0, 3).join('.');                              
 
     // Log para debug (remova em produção)
-    logger.debug("Token received: ", token, "\n\nFirst token extracted: ", firstToken);
+    //logger.debug("Token received:\n", token, "\n\nFirst token extracted:\n",firstToken,"\n");
 
     // Verifica o token
     jwt.verify(firstToken, process.env.JWT_SECRET, async (err, decoded) => {

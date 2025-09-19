@@ -1,6 +1,7 @@
 // validation.middlewares.js
 import { logger } from '../utils/logger.js';
 import { z } from 'zod';
+import { bookIdSchema } from '../schema/book.schema.js';
 
 const validate = (schema) => (req, res, next) => {
   try {
@@ -86,4 +87,26 @@ const validateUserId = (req, res, next) => {
   next();
 };
 
-export { validate, validateUserId };
+
+// Middleware específico para validar o ID do livro na rota
+const validateBookId = (req, res, next) => {
+  try {
+    bookIdSchema.parse({ bookId: +req.params.id });
+    next();
+  } catch (error) {
+    const formattedErrors = error.issues.map((issue) => ({
+      field: issue.path.join("."),
+      message: issue.message,
+      code: issue.code,
+    }));
+    logger.warn("BookId validation failed:", formattedErrors);
+    return res.status(400).json({
+      statusCode: 400,
+      message: "Bad Request",
+      error: "Validation Error",
+      details: formattedErrors,
+    });
+  }
+};    
+
+export { validate, validateUserId, validateBookId };
