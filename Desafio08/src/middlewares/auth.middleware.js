@@ -1,11 +1,41 @@
-// auth.middleware.js
+// auth.middleware.js - Versão Corrigida
 import "dotenv/config"
 import jwt from 'jsonwebtoken';
 import { logger } from "../utils/logger.js"
 import userServices from "../service/user.services.js";
 
+// Lista de rotas públicas que não requerem autenticação
+const publicRoutes = [
+    { path: '/books', method: 'GET' },
+    { path: '/books/search', method: 'GET' },
+    { path: '/books/:id', method: 'GET' },
+    { path: '/users', method: 'POST' },
+    { path: '/users/login', method: 'POST' },
+    { path: '/loans', method: 'GET' },
+    { path: '/loans/:id', method: 'GET' }
+];
+
 // Middleware para autenticação JWT
 export function authMiddleware(req, res, next) {
+    // Verifica se a rota atual é pública
+    const isPublicRoute = publicRoutes.some(publicRoute => {
+        // Verifica se o método coincide
+        if (publicRoute.method !== req.method) {
+            return false;
+        }
+
+        // Converte a rota pública em uma expressão regular
+        const regexPattern = publicRoute.path.replace(/:\w+/g, '([^/]+)');
+        const regex = new RegExp(`^${regexPattern}$`);
+        return regex.test(req.path);
+    });
+    
+    // Se for rota pública, passa para o próximo middleware
+    if (isPublicRoute) {
+        return next();
+    }
+    
+    // Para rotas protegidas, verifica o token
     const authHeader = req.headers.authorization;
     
     if (!authHeader) {
@@ -23,7 +53,7 @@ export function authMiddleware(req, res, next) {
     }
 
     const [schema, token] = tokenParts;
-    //logger.info("Token schema:", tokenParts[0]);
+    
     // Verificação do schema com regex (case-insensitive)
     if (!/^Bearer$/i.test(schema)) {
         logger.warn("Token malformatted - schema incorrect");
@@ -44,9 +74,6 @@ export function authMiddleware(req, res, next) {
 
     // Pega apenas as três primeiras partes (primeiro token válido)
     const firstToken = allParts.slice(0, 3).join('.');                              
-
-    // Log para debug (remova em produção)
-    //logger.debug("Token received:\n", token, "\n\nFirst token extracted:\n",firstToken,"\n");
 
     // Verifica o token
     jwt.verify(firstToken, process.env.JWT_SECRET, async (err, decoded) => {

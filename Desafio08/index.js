@@ -1,7 +1,10 @@
+//index.js
 import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import { routers } from "./src/routes/index.js";
+import { logger } from "./src/utils/logger.js";
 
 // Forçar NODE_ENV se não estiver definido
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
@@ -34,11 +37,7 @@ requiredEnvVars.forEach(varName => {
   }
 });
 
-// Agora importe os outros módulos que dependem das variáveis de ambiente
-import userRoutes from "./src/routes/user.routes.js";
-import bookRoutes from "./src/routes/book.routes.js";
-import loanRoutes from "./src/routes/loan.routes.js";
-import { logger } from "./src/utils/logger.js";
+
 
 // Cria a aplicação Express
 const app = express();
@@ -48,9 +47,7 @@ app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Rotas
-app.use("/api", userRoutes);
-app.use("/api", bookRoutes);
-app.use("/api", loanRoutes);
+app.use("/api", routers);
 
 // Importe e inicialize o cron service APÓS as variáveis de ambiente estarem carregadas
 import('./src/service/cron.services.js')

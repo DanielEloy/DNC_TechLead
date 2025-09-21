@@ -3,8 +3,6 @@ import cron from 'node-cron';
 import { sendEmail } from './email.service.js';
 import { logger } from "../utils/logger.js";
 import loanRepository from '../repositories/loan.repositories.js';
-import bookRepository from '../repositories/book.repositories.js';
-import userRepository from '../repositories/user.repositories.js';
 import moment from 'moment';
 
 // Agendar tarefa para rodar todo dia às 22:00
@@ -25,8 +23,6 @@ cron.schedule('0 22 * * *', async () => {
             try {
                 const dueDate = moment(loan.dueDate).startOf('day');
                 const reminderDueDate = moment(dueDate).subtract(1, 'days');
-                const user = await userRepository.findUserByIdRepository(loan.userId);
-                const book = await bookRepository.findBookByIdRepository(loan.bookId);
                 
                 if (!user || !book) {
                     logger.warn(`Could not find user or book for loan ID: ${loan.id}`);
