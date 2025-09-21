@@ -11,14 +11,14 @@ logger.info("Book routes initialized")
 const router = Router()
 
 // Rotas PÚBLICAS (não requerem autenticação)
-router.get("/books", bookControllers.findAllBooksController)
-router.get("/books/search", bookControllers.searchBooksByTitleController)
-router.get("/books/:id", bookControllers.findBookByIdController)
+router.get("/", bookControllers.findAllBooksController)
+router.get("/search", bookControllers.searchBooksByTitleController)
+router.get("/:id", bookControllers.findBookByIdController)
 
 // Rotas PROTEGIDAS (requerem autenticação)
-router.post("/books", authMiddleware, validate(bookSchema), bookControllers.createBookController)
-router.patch("/books/:id", authMiddleware, validateBookId, bookControllers.updateBookController)
-router.delete("/books/:id", authMiddleware, validateBookId, bookControllers.deleteBookController)
+router.post("/", authMiddleware, validate(bookSchema), bookControllers.createBookController)
+router.patch("/:id", authMiddleware, validateBookId, bookControllers.updateBookController)
+router.delete("/:id", authMiddleware, validateBookId, bookControllers.deleteBookController)
 
 // Logs informativos (apenas para debugging)
 logger.debug({

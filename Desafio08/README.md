@@ -1,228 +1,190 @@
-API de Gerenciamento de Biblioteca - Documentação Completa
+# 📚 API de Gerenciamento de Biblioteca
 
-📋 Visão Geral
-API RESTful completa para gerenciamento de uma biblioteca digital, incluindo usuários, livros e empréstimos. Desenvolvida com Node.js, Express e SQLite.
+![Node.js](https://img.shields.io/badge/Node.js-14.x-green)
+![Express](https://img.shields.io/badge/Express-4.x-blue)
+![SQLite](https://img.shields.io/badge/SQLite-3.x-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-🚀 Características Principais
-✅ Autenticação JWT
+API RESTful completa para gerenciamento de uma biblioteca digital, incluindo usuários, livros e empréstimos. Desenvolvida com **Node.js**, **Express** e **SQLite**.
 
-✅ Validação de dados com Zod
+---
 
-✅ Logging completo com Winston
+## 🚀 Principais Recursos
 
-✅ CRUD completo para usuários, livros e empréstimos
+* ✅ Autenticação JWT
+* ✅ Validação de dados com Zod
+* ✅ Logging completo com Winston
+* ✅ CRUD completo para usuários, livros e empréstimos
+* ✅ Sistema de permissões e autorização
+* ✅ Consultas relacionais com JOINs
+* ✅ Documentação completa da API
 
-✅ Sistema de permissões e autorização
+---
 
-✅ Consultas relacionais com JOINs
+## 📦 Instalação
 
-✅ Documentação completa da API
+1. Clone o repositório:
 
-📦 Instalação
-bash
-# Clone o repositório
-git clone <url-do-repositorio>
+```bash
+git clone https://github.com/DanielEloy/DNC_TechLead.git
+```
 
-# Instale as dependências
+2. Instale as dependências:
+
+```bash
 npm install
+```
 
-# Configure as variáveis de ambiente
+3. Configure as variáveis de ambiente:
+
+```bash
 cp .env.example .env
+```
 
-# Execute em modo desenvolvimento
+4. Ajuste o ambiente no arquivo `index.js`:
+
+```js
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+```
+
+5. Execute em modo desenvolvimento:
+
+```bash
 npm run dev
+```
 
-# Execute em produção
+6. Execute em produção:
+
+```bash
 npm start
-🔧 Configuração de Ambiente
-Crie um arquivo .env na raiz do projeto:
+```
 
-env
+---
+
+## 🔧 Configuração do Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
 NODE_ENV=development
 PORT=3000
 JWT_SECRET=seu_jwt_secret_super_seguro_aqui
 EMAIL_USER=seu_email@provedor.com
 EMAIL_PASS=sua_senha_de_email
-🗂️ Estrutura do Projeto
-text
+```
+
+---
+
+## 🗂 Estrutura do Projeto
+
+```
 src/
-├── config/          # Configurações do banco de dados
-├── controllers/     # Lógica dos endpoints
-├── middlewares/    # Autenticação e validação
-├── repositories/   # Acesso ao banco de dados
-├── routes/         # Definição das rotas
-├── schema/         # Esquemas de validação Zod
-├── service/        # Lógica de negócio
-└── utils/          # Utilitários (logger)
-📊 Endpoints da API
-👥 Gestão de Usuários
-POST /api/users - Criar Usuário
-Cria um novo usuário no sistema.
+├── config/        # Configurações do banco de dados
+├── controllers/   # Lógica dos endpoints
+├── middlewares/   # Autenticação e validação
+├── repositories/  # Acesso ao banco de dados
+├── routes/        # Definição das rotas
+├── schema/        # Esquemas de validação Zod
+├── service/       # Lógica de negócio
+└── utils/         # Utilitários (logger, helpers)
+```
 
-Request:
+---
 
-http
-POST /api/users
-Content-Type: application/json
-Body:
+## 📊 Endpoints da API
 
-json
-{
+### 👥 Gestão de Usuários
+
+**Rotas Registradas**:
+
+```
+📨 POST    /users          → Criar novo usuário
+🔐 POST    /users/login    → Login de usuário
+👀 GET     /users/:id      → Buscar usuário por ID
+✏️ PUT     /users/:id      → Atualizar usuário por ID
+🗑️ DELETE  /users/:id      → Deletar usuário por ID
+👥 GET     /users          → Buscar todos os usuários
+```
+
+**Exemplo: Criar usuário**
+
+```bash
+curl -X POST http://localhost:3000/api/users \
+-H "Content-Type: application/json" \
+-d '{
   "username": "joao_silva",
   "email": "joao@email.com",
   "password": "senhaSegura123"
-}
-Response (201 Created):
+}'
+```
 
-json
+**Response (201 Created):**
+
+```json
 {
   "id": 1,
   "username": "joao_silva",
   "email": "joao@email.com",
   "createdAt": "2023-10-15T14:30:00.000Z"
 }
-GET /api/users/:id - Buscar Usuário por ID
-Retorna os detalhes de um usuário específico.
+```
 
-Request:
+---
 
-http
-GET /api/users/1
-Authorization: Bearer <jwt_token>
-Response (200 OK):
+### 🔐 Autenticação
 
-json
-{
-  "id": 1,
-  "username": "joao_silva",
-  "email": "joao@email.com",
-  "createdAt": "2023-10-15T14:30:00.000Z",
-  "updatedAt": "2023-10-20T09:15:00.000Z"
-}
-PUT /api/users/:id - Atualizar Usuário
-Atualiza as informações de um usuário existente.
+**Login de usuário**
 
-Request:
-
-http
-PUT /api/users/1
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-Body:
-
-json
-{
-  "username": "joao_silva_updated",
-  "email": "joao.novo@email.com"
-}
-Response (200 OK):
-
-json
-{
-  "id": 1,
-  "username": "joao_silva_updated",
-  "email": "joao.novo@email.com",
-  "createdAt": "2023-10-15T14:30:00.000Z",
-  "updatedAt": "2023-10-25T11:45:00.000Z"
-}
-DELETE /api/users/:id - Deletar Usuário
-Remove um usuário do sistema.
-
-Request:
-
-http
-DELETE /api/users/1
-Authorization: Bearer <jwt_token>
-Response (200 OK):
-
-json
-{
-  "message": "User deleted successfully",
-  "deletedUser": {
-    "id": 1,
-    "username": "joao_silva_updated",
-    "email": "joao.novo@email.com"
-  }
-}
-🔐 Autenticação
-POST /api/users/login - Login de Usuário
-Autentica um usuário e retorna um token JWT.
-
-Request:
-
-http
-POST /api/users/login
-Content-Type: application/json
-Body:
-
-json
-{
+```bash
+curl -X POST http://localhost:3000/api/users/login \
+-H "Content-Type: application/json" \
+-d '{
   "email": "joao@email.com",
   "password": "senhaSegura123"
-}
-Response (200 OK):
+}'
+```
 
-json
+**Response (200 OK):**
+
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
-📚 Gestão de Livros
-GET /api/books - Listar Todos os Livros
-Retorna todos os livros disponíveis.
+```
 
-Request:
+> Inclua o token no header `Authorization: Bearer <seu_token_jwt>` para acessar endpoints protegidos.
 
-http
-GET /api/books
-Response (200 OK):
+---
 
-json
-[
-  {
-    "id": 1,
-    "title": "Dom Casmurro",
-    "author": "Machado de Assis",
-    "isbn": "9788544001820",
-    "createdAt": "2023-10-15T14:30:00.000Z"
-  }
-]
-GET /api/books/:id - Buscar Livro por ID
-Retorna os detalhes de um livro específico.
+### 📚 Gestão de Livros
 
-Request:
+**Rotas Registradas**:
 
-http
-GET /api/books/1
-Response (200 OK):
+```
+👀 GET     /books          → Buscar todos os livros
+👀 GET     /books/:id      → Buscar livro por ID
+🔍 GET     /books/search   → Buscar livros
+📨 POST    /books          → Criar livro (protegido)
+✏️ PATCH   /books/:id      → Atualizar livro por ID (protegido)
+🗑️ DELETE  /books/:id      → Deletar livro por ID (protegido)
+```
 
-json
-{
-  "id": 1,
-  "title": "Dom Casmurro",
-  "author": "Machado de Assis",
-  "isbn": "9788544001820",
-  "createdAt": "2023-10-15T14:30:00.000Z"
-}
-POST /api/books - Criar Livro
-Adiciona um novo livro ao sistema (requer autenticação).
+**Exemplo: Criar livro**
 
-Request:
-
-http
-POST /api/books
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-Body:
-
-json
-{
+```bash
+curl -X POST http://localhost:3000/api/books \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <seu_token_jwt>" \
+-d '{
   "title": "O Cortiço",
   "author": "Aluísio Azevedo",
   "isbn": "9788572326972"
-}
-Response (201 Created):
+}'
+```
 
-json
+**Response (201 Created):**
+
+```json
 {
   "id": 2,
   "title": "O Cortiço",
@@ -230,107 +192,85 @@ json
   "isbn": "9788572326972",
   "createdAt": "2023-10-16T10:15:00.000Z"
 }
-📖 Gestão de Empréstimos
-GET /api/loans - Listar Todos os Empréstimos
-Retorna todos os empréstimos com informações de usuário e livro.
+```
 
-Request:
+---
 
-http
-GET /api/loans
-Response (200 OK):
+### 📖 Gestão de Empréstimos
 
-json
-[
-  {
-    "id": 1,
-    "dueDate": "2023-11-15T14:30:00.000Z",
-    "username": "joao_silva",
-    "email": "joao@email.com",
-    "title": "Dom Casmurro"
-  }
-]
-POST /api/loans - Criar Empréstimo
-Registra um novo empréstimo de livro (requer autenticação).
+**Rotas Registradas**:
 
-Request:
+```
+📨 POST    /loans      → Criar empréstimo
+👀 GET     /loans      → Buscar todos os empréstimos
+👀 GET     /loans/:id  → Buscar empréstimo por ID
+🗑️ DELETE  /loans/:id  → Deletar empréstimo
+```
 
-http
-POST /api/loans
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-Body:
+**Exemplo: Criar empréstimo**
 
-json
-{
+```bash
+curl -X POST http://localhost:3000/api/loans \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <seu_token_jwt>" \
+-d '{
   "bookId": 1,
   "dueDate": "2023-11-15"
-}
-Response (201 Created):
+}'
+```
 
-json
+**Response (201 Created):**
+
+```json
 {
   "id": 2,
   "userId": 1,
   "bookId": 1,
   "dueDate": "2023-11-15T00:00:00.000Z"
 }
-🛡️ Autenticação e Autorização
-A API utiliza autenticação baseada em tokens JWT. Para acessar endpoints protegidos:
+```
 
-Faça login para obter um token
+---
 
-Inclua o token no header das requisições:
+## 🛡️ Autenticação e Autorização
 
-text
+* JWT stateless
+* Tokens devem ser incluídos no header:
+
+```
 Authorization: Bearer <seu_token_jwt>
-Os tokens têm validade de 24 horas por padrão.
+```
 
-📋 Códigos de Status HTTP
-Código	Status	Descrição
-200	OK	Requisição bem-sucedida
-201	Created	Recurso criado com sucesso
-400	Bad Request	Dados de entrada inválidos
-401	Unauthorized	Autenticação necessária
-404	Not Found	Recurso não encontrado
-409	Conflict	Conflito (email já existente)
-500	Internal Server Error	Erro interno do servidor
-💻 Exemplos de Uso com cURL
-Criar usuário:
-bash
-curl -X POST http://localhost:3000/api/users \
-  -H "Content-Type: application/json" \
-  -d '{"username":"maria","email":"maria@email.com","password":"senha123"}'
-Fazer login:
-bash
-curl -X POST http://localhost:3000/api/users/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"maria@email.com","password":"senha123"}'
-Buscar usuário (com autenticação):
-bash
-curl -X GET http://localhost:3000/api/users/1 \
-  -H "Authorization: Bearer <seu_token_jwt>"
-Buscar todos os livros:
-bash
-curl -X GET http://localhost:3000/api/books
-Criar livro (com autenticação):
-bash
-curl -X POST http://localhost:3000/api/books \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <seu_token_jwt>" \
-  -d '{"title":"O Cortiço","author":"Aluísio Azevedo","isbn":"9788572326972"}'
-🛡️ Considerações de Segurança
-Senhas hasheadas: Todas as senhas são armazenadas usando hash bcrypt
+---
 
-Autenticação obrigatória: Endpoints sensíveis requerem autenticação
+## 📋 Códigos de Status HTTP
 
-Validação robusta: A API utiliza validação completa de entrada com Zod
+| Código | Descrição                                        |
+| ------ | ------------------------------------------------ |
+| 200    | OK – Requisição bem-sucedida                     |
+| 201    | Created – Recurso criado com sucesso             |
+| 400    | Bad Request – Dados inválidos                    |
+| 401    | Unauthorized – Autenticação necessária           |
+| 404    | Not Found – Recurso não encontrado               |
+| 409    | Conflict – Conflito (ex: email já existente)     |
+| 500    | Internal Server Error – Erro interno do servidor |
 
-Tokens JWT: Autenticação stateless com tokens seguros
+---
 
-Proteção de dados: Erros não expõem detalhes sensíveis em produção
+## 🛡️ Considerações de Segurança
 
-📞 Suporte
+* Senhas armazenadas com **hash bcrypt**
+* Endpoints sensíveis exigem autenticação
+* Validação robusta com **Zod**
+* JWTs seguros e stateless
+* Erros não expõem informações sensíveis em produção
+
+---
+
+## 📞 Suporte
+
 Em caso de problemas ou dúvidas, entre em contato com a equipe de desenvolvimento.
 
-Documentação atualizada em: 21 de setembro de 2025
+---
+
+*Documentação atualizada em: 21 de setembro de 2025*

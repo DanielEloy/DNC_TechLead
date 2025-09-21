@@ -9,17 +9,13 @@ logger.info("Loan routes initialized");
 
 const router = Router();
 
-// Rota para criar um novo empréstimo
-router.post('/loans', validate(loanSchema), loanController.createLoanController);
+// Rotas PÚBLICAS (não requerem autenticação)
+router.get('/', loanController.findAllLoansController);
+router.get('/:id', loanController.findLoanByIdController);
 
-// Rota para buscar todos os empréstimos
-router.get('/loans/', loanController.findAllLoansController);
-
-// Rota para buscar um empréstimo por ID
-router.get('/loans/:id', loanController.findLoanByIdController);
-
-// Rota para deletar um empréstimo por ID
-router.delete('/loans/:id', validate(loanSchema), loanController.deleteLoanController);
+// Rotas PROTEGIDAS (requerem autenticação)
+router.post('/', validate(loanSchema), loanController.createLoanController);
+router.delete('/:id', validate(loanSchema), loanController.deleteLoanController);
 
 // Logs informativos (apenas para debugging)
 logger.debug({
@@ -32,4 +28,4 @@ logger.debug({
   ]
 });
 
-export default router;
+export default router

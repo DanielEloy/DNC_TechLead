@@ -9,8 +9,8 @@ logger.info(" Routes initialized ")
 
 const routers = Router()
 
-routers.use(userRouters);
-routers.use(bookRouters);
-routers.use(loanRouters);
+routers.use("/users", userRouters);
+routers.use("/books", bookRouters);
+routers.use("/loans", loanRouters);
 
 export { routers }
