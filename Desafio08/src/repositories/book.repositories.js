@@ -184,6 +184,25 @@ function searchBooksByTitleRepository(search) {
         });
     });
 }
+
+// =========================
+// READ - Buscar um livro por ID específico
+// =========================
+function findBookByIdRepository(bookId) {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM books WHERE id = ?`;
+        
+        db.get(sql, [bookId], (err, row) => {
+            if (err) {
+                logger.error("Error fetching book by ID:", err.message);
+                return reject(err);
+            }
+            logger.debug(`SQL executed: ${sql} | Params: [${bookId}]`);
+            resolve(row);
+        });
+    });
+}
+
 // =========================
 // Exporta os repositórios
 // =========================
@@ -191,6 +210,7 @@ export default {
     createBookRepository,
     findAllUsersRepository,
     findAllBooksRepository,
+    findBookByIdRepository,
     updateBookRepository,
     deleteBookRepository,
     searchBooksByTitleRepository

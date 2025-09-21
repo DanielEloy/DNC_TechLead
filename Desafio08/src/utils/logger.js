@@ -53,11 +53,25 @@ class Logger {
   constructor(level = defaultLevel) {
     this.level = level;
   }
-// Formata a mensagem de log
+  
+  // Formata a mensagem de log
   format(level, color, args) {
     const timestamp = formatDate();
     const location = getCallerInfo();
-    return `${color}${timestamp} [${level}] (${location})${colors.RESET} - ${args.join(" ")}`;
+    
+    // Processa cada argumento para converter objetos em strings JSON
+    const formattedArgs = args.map(arg => {
+      if (typeof arg === 'object' && arg !== null) {
+        try {
+          return JSON.stringify(arg, null, 2);
+        } catch (e) {
+          return String(arg);
+        }
+      }
+      return String(arg);
+    }).join(" ");
+    
+    return `${color}${timestamp} [${level}] (${location})${colors.RESET} - ${formattedArgs}`;
   }
 
   debug(...args) {
@@ -88,6 +102,7 @@ class Logger {
     this.level = level;
   }
 }
+
 // Instância única do logger
 const logger = new Logger();
 

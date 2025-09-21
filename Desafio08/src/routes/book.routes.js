@@ -12,8 +12,8 @@ const router = Router()
 
 // Rotas PÚBLICAS (não requerem autenticação)
 router.get("/books", bookControllers.findAllBooksController)
-router.get("/books/:id", bookControllers.findBookByIdController)
 router.get("/books/search", bookControllers.searchBooksByTitleController)
+router.get("/books/:id", bookControllers.findBookByIdController)
 
 // Rotas PROTEGIDAS (requerem autenticação)
 router.post("/books", authMiddleware, validate(bookSchema), bookControllers.createBookController)
@@ -21,11 +21,16 @@ router.patch("/books/:id", authMiddleware, validateBookId, bookControllers.updat
 router.delete("/books/:id", authMiddleware, validateBookId, bookControllers.deleteBookController)
 
 // Logs informativos (apenas para debugging)
-logger.info("GET /books route registered for fetching all books")
-logger.info("GET /books/:id route registered for fetching a book by ID")
-logger.info("GET /books/search route registered for searching books")
-logger.info("POST /books route registered for creating a new book (protected)")
-logger.info("PATCH /books/:id route registered for updating a book by ID (protected)")
-logger.info("DELETE /books/:id route registered for deleting a book by ID (protected)")
+logger.debug({
+  message: "📚 Book Routes Registered", 
+  routes: [
+    "👀 GET     /books          → Fetch all books",
+    "👀 GET     /books/:id      → Fetch book by ID",
+    "🔍 GET     /books/search   → Search books",
+    "📨 POST    /books          → Create new book (protected)",
+    "✏️ PATCH   /books/:id      → Update book by ID (protected)",
+    "🗑️ DELETE  /books/:id      → Delete book by ID (protected)"
+  ]
+});
 
 export default router
