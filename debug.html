@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Chat</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .debug-info { background: #f0f0f0; padding: 15px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug do Chat</h1>
+    
+    <div class="debug-info">
+        <h3>Verifique no Console (F12):</h3>
+        <p>1. Abra o Console do navegador</p>
+        <p>2. Recarregue a página</p>
+        <p>3. Veja as mensagens de debug</p>
+    </div>
+
+    <button onclick="checkElements()">Verificar Elementos do Chat</button>
+    
+    <script>
+        function checkElements() {
+            const elements = [
+                'chat-toggle', 'chat-window', 'chat-close', 
+                'chat-messages', 'chat-input', 'chat-send'
+            ];
+            
+            elements.forEach(id => {
+                const el = document.getElementById(id);
+                console.log(`${id}:`, el ? '✅ ENCONTRADO' : '❌ NÃO ENCONTRADO');
+            });
+        }
+        
+        // Verificar automaticamente ao carregar
+        setTimeout(checkElements, 1000);
+    </script>
+</body>
+</html>
