@@ -11,7 +11,7 @@
     },
     {
       "name": "Certificados",
-      "description": "Meus certificados de conclusão",
+      "description": "Projeto de gestaão dos certificados de conclusão",
       "url_local": "../Certificados/build/index.html",
       "url_network": "https://certificadosdanieleloy.netlify.app",
       "icon": "fas fa-certificate",
