@@ -1,5 +1,6 @@
 import React from 'react';
 import './Hero.css';
+import DanielImage from '/src/assets/Daniel_Eloy.jpeg';
 
 const Hero: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="hero-image">
-            <img src="https://media.licdn.com/dms/image/v2/C4D03AQGjqXRZtbnMWA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1620842173436?e=1757548800&v=beta&t=_o7tKLB0B1ZGHpr9Zv2pGrnZ5udV54duUrvUh61TG6A" alt="Daniel Eloy" />
+            <img src={DanielImage} alt="Daniel Eloy" />
           </div>
         </div>
       </div>
