@@ -1,0 +1,14 @@
+.main/
+  frontend/
+    index.html
+    index.js
+    style.css
+    projects.json
+    package.json
+    vite.config.js  
+  backend/
+    package.json
+    server.js
+    .env
+  .gitignore
+README.md
