@@ -38,78 +38,31 @@ try {
   const raw = fs.readFileSync(projectsPath, 'utf8');
   const pj = JSON.parse(raw);
   
-  PROJECT_CONTEXT =
-    "Daniel Eloy é um desenvolvedor com os seguintes projetos:\n\n" +
-    (pj.projects || [])
-      .map((p) => 
-        `PROJETO: ${p.name}\n` +
-        `DESCRIÇÃO: ${p.description}\n` +
-        `TIPO: ${p.type}\n` +
-        `TECNOLOGIAS: ${p.technologies || 'HTML, CSS, JavaScript'}\n` +
-        `URL: ${p.url_network || 'Não disponível'}\n` +
-        `---`
-      )
-      .join("\n") +
-    "\n\nInstrução: Responda sempre com base específica nestes projetos, mencionando detalhes técnicos quando relevante.";
+  PROJECT_CONTEXT = `Daniel Eloy é um desenvolvedor Full Stack com os seguintes projetos:
+
+${(pj.projects || [])
+  .map((p, index) => 
+    `PROJETO ${index + 1}: ${p.name}
+Descrição: ${p.description}
+Tipo: ${p.type}
+Tecnologias: ${p.technologies || 'HTML, CSS, JavaScript, React, Node.js'}
+URL: ${p.url_network || 'Não disponível'}
+---`
+  )
+  .join("\n")}
+
+INSTRUÇÕES IMPORTANTES PARA O ASSISTENTE:
+1. Você é um especialista técnico analisando o portfólio de Daniel Eloy
+2. SEMPRE responda com base específica nos projetos listados acima
+3. Quando perguntarem sobre tecnologias, mencione as usadas em cada projeto
+4. Seja técnico e específico, evitando respostas genéricas
+5. Foque nas stacks tecnológicas e desafios de cada projeto`;
   
   console.log("✅ Projects.json carregado com sucesso!");
   console.log(`📊 ${pj.projects?.length || 0} projetos carregados`);
 } catch (err) {
-  PROJECT_CONTEXT = `
-  Daniel Eloy tem os seguintes projetos:
-
-  PROJETO: Portfólio
-  DESCRIÇÃO: Me apresentando e mostrando minha trajetória
-  TIPO: folder
-  URL: https://portifolio-daniel-eloy.netlify.app/
-
-  PROJETO: Certificados
-  DESCRIÇÃO: Projeto de gestão dos certificados de conclusão
-  TIPO: folder
-  URL: https://certificadosdanieleloy.netlify.app
-
-  PROJETO: Projeto 01
-  DESCRIÇÃO: Desenvolvendo a primeira landing page do curso
-  TIPO: challenge
-  URL: https://dnc-desafio01-landing-page.netlify.app/
-
-  PROJETO: Projeto 02
-  DESCRIÇÃO: Desenvolvendo site com responsividade usando CSS e Media Queries
-  TIPO: challenge
-  URL: https://dnc-desafio-02.netlify.app/
-
-  PROJETO: Projeto 03
-  DESCRIÇÃO: Desenvolvendo site com JavaScript
-  TIPO: challenge
-  URL: https://dnc-desafio03.netlify.app/
-
-  PROJETO: Projeto 04
-  DESCRIÇÃO: Desenvolvendo site com React, CSS e JavaScript
-  TIPO: challenge
-  URL: https://dnc-desafio04.netlify.app/
-
-  PROJETO: Projeto 05
-  DESCRIÇÃO: Desenvolvendo site com Node.js e TypeScript
-  TIPO: challenge
-  URL: https://dnc-desafio05.netlify.app/
-
-  PROJETO: Projeto 06
-  DESCRIÇÃO: Desenvolvendo com Node.js, TypeScript painel de monitoramento de vendas
-  TIPO: challenge
-  URL: https://dnc-desafio06.netlify.app/
-
-  PROJETO: Projeto 07
-  DESCRIÇÃO: NPM (node Package manager), lib para contagem de data e disponibilizando no NPM
-  TIPO: challenge
-  URL: https://dnc-desafio07.netlify.app/
-
-  PROJETO: Documentação
-  DESCRIÇÃO: README do projeto
-  TIPO: file
-  URL: https://github.com/DanielEloy/DNC_TechLead/blob/main/README.md
-  `;
-  
-  console.error("❌ Erro ao carregar projects.json, usando contexto manual:", err.message);
+  console.error("❌ Erro ao carregar projects.json:", err.message);
+  PROJECT_CONTEXT = "Não há informações de projetos disponíveis no momento.";
 }
 
 app.post("/api/chat", async (req, res) => {
