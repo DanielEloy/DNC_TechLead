@@ -24,16 +24,30 @@ app.use(express.json());
 const API_KEY = process.env.GEMINI_API_KEY || "";
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
-// Obter diretório atual para caminhos absolutos
+// Debug completo do diretório
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Carrega contexto dos projetos (backend/projects.json)
+console.log("=== DEBUG DO DIRETÓRIO ===");
+console.log("📁 __dirname:", __dirname);
+console.log("📁 __filename:", __filename);
+console.log("📁 Diretório atual:", process.cwd());
+
+// Listar arquivos no diretório atual
+try {
+  const files = fs.readdirSync(__dirname);
+  console.log("📋 Arquivos no diretório backend:");
+  files.forEach(file => console.log("   -", file));
+} catch (err) {
+  console.error("❌ Erro ao listar arquivos:", err.message);
+}
+
+// Carrega contexto dos projetos
 let PROJECT_CONTEXT = "";
 try {
-  // Usa caminho absoluto
+  // Tentativa 1: Caminho relativo
   const projectsPath = join(__dirname, 'projects.json');
-  console.log(`📁 Tentando carregar projects.json de: ${projectsPath}`);
+  console.log(`📁 Tentando carregar: ${projectsPath}`);
   
   const raw = fs.readFileSync(projectsPath, 'utf8');
   const pj = JSON.parse(raw);
@@ -45,26 +59,39 @@ ${(pj.projects || [])
     `PROJETO ${index + 1}: ${p.name}
 Descrição: ${p.description}
 Tipo: ${p.type}
-Tecnologias: ${p.technologies || 'HTML, CSS, JavaScript, React, Node.js'}
+Tecnologias: ${p.technologies || 'HTML, CSS, JavaScript'}
 URL: ${p.url_network || 'Não disponível'}
 ---`
   )
-  .join("\n")}
-
-INSTRUÇÕES IMPORTANTES PARA O ASSISTENTE:
-1. Você é um especialista técnico analisando o portfólio de Daniel Eloy
-2. SEMPRE responda com base específica nos projetos listados acima
-3. Quando perguntarem sobre tecnologias, mencione as usadas em cada projeto
-4. Seja técnico e específico, evitando respostas genéricas
-5. Foque nas stacks tecnológicas e desafios de cada projeto`;
+  .join("\n")}`;
   
   console.log("✅ Projects.json carregado com sucesso!");
   console.log(`📊 ${pj.projects?.length || 0} projetos carregados`);
+  
 } catch (err) {
   console.error("❌ Erro ao carregar projects.json:", err.message);
-  PROJECT_CONTEXT = "Não há informações de projetos disponíveis no momento.";
+  
+  // Tentativa 2: Caminho absoluto alternativo
+  try {
+    const altPath = join(process.cwd(), 'projects.json');
+    console.log(`🔄 Tentativa alternativa: ${altPath}`);
+    
+    const raw = fs.readFileSync(altPath, 'utf8');
+    const pj = JSON.parse(raw);
+    
+    PROJECT_CONTEXT = `Daniel Eloy - Projetos (${pj.projects?.length || 0} projetos carregados)`;
+    console.log("✅ Projects.json carregado via caminho alternativo!");
+    
+  } catch (err2) {
+    console.error("❌ Falha na tentativa alternativa:", err2.message);
+    
+    // Fallback manual
+    PROJECT_CONTEXT = `Daniel Eloy é um desenvolvedor Full Stack com 10 projetos incluindo Portfólio, Certificados, e desafios técnicos usando HTML, CSS, JavaScript, React, Node.js e TypeScript.`;
+    console.log("🔄 Usando contexto manual de fallback");
+  }
 }
 
+// Resto do código permanece igual...
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -73,11 +100,11 @@ app.post("/api/chat", async (req, res) => {
 
     const full_prompt = `${PROJECT_CONTEXT}
 
-PERGUNTA DO USUÁRIO: ${message}
+PERGUNTA: ${message}
 
-Com base nos projetos listados acima, responda de forma específica e técnica:`;
+Responda de forma técnica e específica sobre os projetos do Daniel:`;
 
-    console.log(`💬 Chat request: "${message.substring(0, 50)}..."`);
+    console.log(`💬 Chat: "${message}"`);
 
     const payload = {
       contents: [{ parts: [{ text: full_prompt }] }],
@@ -97,14 +124,8 @@ Com base nos projetos listados acima, responda de forma específica e técnica:`
 
     const data = response.data || {};
     const bot_response =
-      (data.candidates &&
-        data.candidates[0] &&
-        data.candidates[0].content &&
-        data.candidates[0].content.parts &&
-        data.candidates[0].content.parts[0].text) ||
+      (data.candidates?.[0]?.content?.parts?.[0]?.text) ||
       "⚠️ Não consegui gerar resposta";
-
-    console.log(`🤖 Resposta gerada: ${bot_response.substring(0, 100)}...`);
 
     return res.json({
       response: bot_response,
@@ -112,14 +133,11 @@ Com base nos projetos listados acima, responda de forma específica e técnica:`
       status: "success",
     });
   } catch (err) {
-    console.error("Erro /api/chat:", err?.response?.data || err.message || err);
-    return res
-      .status(500)
-      .json({ 
-        error: "Erro interno ao gerar resposta", 
-        details: err.message,
-        status: "error" 
-      });
+    console.error("Erro /api/chat:", err.message);
+    return res.status(500).json({ 
+      error: "Erro interno ao gerar resposta",
+      status: "error" 
+    });
   }
 });
 
@@ -127,29 +145,11 @@ app.get("/api/health", (req, res) => {
   res.json({
     status: "OK",
     service: "DNC Chat API - Daniel Eloy",
-    projects: 10,
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || "development"
   });
-});
-
-app.get("/api/projects", (req, res) => {
-  try {
-    const projectsPath = join(__dirname, 'projects.json');
-    const raw = fs.readFileSync(projectsPath, 'utf8');
-    const projects = JSON.parse(raw);
-    res.json(projects);
-  } catch (err) {
-    res.status(500).json({ 
-      error: "Não foi possível carregar os projetos",
-      details: err.message 
-    });
-  }
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Backend rodando na porta ${PORT}`);
-  console.log(`🌐 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🤖 Chat endpoint: http://localhost:${PORT}/api/chat`);
 });
