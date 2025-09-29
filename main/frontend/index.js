@@ -3,7 +3,7 @@
   ? "http://127.0.0.1:5000"
   : "https://dnc-chat-api.onrender.com"; */
 
-  const API_URL = '/api';
+  const API_URL = 'https://dnc-chat-backend.onrender.com/api';
 
 // ===== SISTEMA PRINCIPAL =====
 let projectsData = { projects: [] };
