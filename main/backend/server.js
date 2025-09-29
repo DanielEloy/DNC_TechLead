@@ -21,22 +21,21 @@ app.use(express.json());
 const API_KEY = process.env.GEMINI_API_KEY || "";
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
-// Carrega contexto dos projetos (frontend/projects.json)
+// Carrega contexto dos projetos (backend/projects.json)
 let PROJECT_CONTEXT = "";
 try {
-  const path = new URL("../frontend/projects.json", import.meta.url);
-  const raw = fs.readFileSync(path, "utf8");
+  // Usa caminho relativo ao backend
+  const raw = fs.readFileSync('./projects.json', 'utf8');
   const pj = JSON.parse(raw);
   PROJECT_CONTEXT =
-    "Lista de projetos:\n" +
+    "Lista de projetos do Daniel Eloy:\n" +
     (pj.projects || [])
-      .map((p) => `- ${p.name}: ${p.description}`)
+      .map((p) => `- ${p.name}: ${p.description} (Tecnologias: ${p.technologies || 'N/A'})`)
       .join("\n");
+  console.log("✅ Projects.json carregado com sucesso!");
 } catch (err) {
-  PROJECT_CONTEXT = "";
-  console.warn(
-    "Aviso: não foi possível carregar projects.json. Adicione manualmente o contexto se precisar."
-  );
+  PROJECT_CONTEXT = "Não há informações de projetos disponíveis no momento.";
+  console.error("❌ Erro ao carregar projects.json:", err.message);
 }
 
 app.post("/api/chat", async (req, res) => {
