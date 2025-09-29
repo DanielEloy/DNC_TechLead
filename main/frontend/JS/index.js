@@ -1,9 +1,7 @@
 // ===== CONFIGURAÇÃO DA API =====
-const API_URL = window.location.hostname === "localhost"
-  ? "http://127.0.0.1:5000"
+const API_BASE_URL = window.location.hostname === "localhost" 
+  ? "http://127.0.0.1:5000/api" 
   : "https://dnc-chat-backend.onrender.com/api";
-
-/*   const API_URL = 'https://dnc-chat-backend.onrender.com/api'; */
 
 // ===== SISTEMA PRINCIPAL =====
 let projectsData = { projects: [] };
@@ -90,7 +88,7 @@ function initializeChat() {
   console.log("🚀 Chat inicializado com sucesso!");
 }
 
-// Enviar mensagem - VERSÃO REAL COM API
+// Enviar mensagem - CORRIGIDO
 async function sendMessage() {
   const chatInput = document.getElementById("chat-input");
   const chatSend = document.getElementById("chat-send");
@@ -105,7 +103,9 @@ async function sendMessage() {
   const thinkingMsg = addMessage("💭 Analisando seus projetos...", "bot thinking");
 
   try {
-    const response = await fetch(`${API_URL}/api/chat`, {
+    console.log(`📤 Enviando para: ${API_BASE_URL}/chat`);
+    
+    const response = await fetch(`${API_BASE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
@@ -117,24 +117,30 @@ async function sendMessage() {
       const data = await response.json();
       console.log("📩 Resposta da API:", data);
 
-      addMessage(data.error ? `❌ ${data.error}` : data.response, "bot");
+      addMessage(data.response || "Resposta recebida", "bot");
 
       chatHistory.push({
         user: message,
-        bot: data.response || data.error,
+        bot: data.response,
         timestamp: new Date().toISOString(),
       });
     } else {
-      throw new Error(`Erro HTTP: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
     }
   } catch (error) {
-    console.error("Erro no chat:", error);
+    console.error("Erro detalhado no chat:", error);
     thinkingMsg.remove();
 
     let errorMessage = "❌ Erro de conexão. ";
     if (error.message.includes("Failed to fetch")) {
       errorMessage += "Verifique se o servidor está rodando.";
+    } else if (error.message.includes("500")) {
+      errorMessage += "Erro interno do servidor. Verifique a API Key Gemini.";
+    } else {
+      errorMessage += error.message;
     }
+    
     addMessage(errorMessage, "bot");
   } finally {
     chatSend.disabled = false;
@@ -149,18 +155,17 @@ function addMessage(text, type) {
   messageDiv.textContent = text;
   chatMessages.appendChild(messageDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
-  return messageDiv; // Retorna para remover mensagens de "thinking"
+  return messageDiv;
 }
 
 // ===== INICIALIZAÇÃO GERAL =====
 document.addEventListener("DOMContentLoaded", function () {
   console.log("📄 DOM Carregado - Iniciando aplicação...");
+  console.log(`🌐 API URL: ${API_BASE_URL}`);
 
   loadProjects();
-
   updateDateTime();
   setInterval(updateDateTime, 1000);
-
   setTimeout(initializeChat, 500);
 
   console.log("🎉 Aplicação inicializada com sucesso!");
