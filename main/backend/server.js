@@ -55,14 +55,22 @@ try {
   PROJECT_CONTEXT = `Daniel Eloy é um desenvolvedor Full Stack com os seguintes projetos:
 
 ${(pj.projects || [])
-  .map((p, index) => 
-    `PROJETO ${index + 1}: ${p.name}
+  .map((p, index) => {
+    // Constrói a string de documentação se existir
+    let documentationInfo = "";
+    if (p.documentation) {
+      documentationInfo = `Documentação: ${p.documentation}\n`;
+    } else if (p.readme) {
+      documentationInfo = `README: ${p.readme}\n`;
+    }
+    
+    return `PROJETO ${index + 1}: ${p.name}
 Descrição: ${p.description}
 Tipo: ${p.type}
 Tecnologias: ${p.technologies || 'HTML, CSS, JavaScript'}
 URL: ${p.url_network || 'Não disponível'}
----`
-  )
+${documentationInfo}---`;
+  })
   .join("\n")}`;
   
   console.log("✅ Projects.json carregado com sucesso!");
@@ -91,7 +99,6 @@ URL: ${p.url_network || 'Não disponível'}
   }
 }
 
-// Resto do código permanece igual...
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -102,7 +109,7 @@ app.post("/api/chat", async (req, res) => {
 
 PERGUNTA: ${message}
 
-Responda de forma técnica e específica sobre os projetos do Daniel:`;
+Responda de forma técnica e específica sobre os projetos do Daniel, incluindo links de documentação quando disponível:`;
 
     console.log(`💬 Chat: "${message}"`);
 
