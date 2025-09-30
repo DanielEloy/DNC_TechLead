@@ -82,12 +82,21 @@
       "icon": "fas fa-code",
       "type": "challenge"
     },
-     {
+    {
       "name": "Projeto 08",
       "description": "API de Gerenciamento de Biblioteca (Backend)",
       "url_local": "../Desafio08/API_de_Gerenciamento_de_Biblioteca/index.js",
       "url_network": "https://github.com/DanielEloy/DNC_TechLead/tree/main/Desafio08",
       "readme": "https://github.com/DanielEloy/DNC_TechLead/blob/main/Desafio08/README.md",
+      "icon": "fas fa-code",
+      "type": "challenge"
+    },
+    {
+      "name": "Projeto 09",
+      "description": "API de Gerenciamento de Biblioteca (FRONTEND + BACKEND)",
+      "url_local": "../Desafio09/Api_gestao_de_livros/RID183995/frontend/index.html",
+      "url_network": "https://github.com/DanielEloy/DNC_TechLead/tree/main/Desafio09",
+      "readme": "https://github.com/DanielEloy/DNC_TechLead/blob/main/Desafio09/README.md",
       "icon": "fas fa-code",
       "type": "challenge"
     },

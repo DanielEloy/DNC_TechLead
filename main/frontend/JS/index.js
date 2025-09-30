@@ -116,7 +116,6 @@ function initializeChat() {
 }
 
 // Enviar mensagem
-// Enviar mensagem
 async function sendMessage() {
   const chatInput = document.getElementById("chat-input");
   const chatSend = document.getElementById("chat-send");
