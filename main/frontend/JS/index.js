@@ -1,4 +1,5 @@
-//index.js
+// JS/index.js
+import { logger } from "../../utils/logger";
 
 // ===== CONFIGURAÇÃO DA API =====
 const API_BASE_URL = window.location.hostname === "localhost" 
@@ -16,7 +17,7 @@ async function loadProjects() {
     projectsData.projects = data.projects;
     renderProjects();
   } catch (error) {
-    console.error("Erro ao carregar projetos:", error);
+    logger.error("❌ Erro ao carregar projetos:", error);
   }
 }
 
@@ -55,7 +56,7 @@ function updateDateTime() {
 let chatHistory = [];
 
 function initializeChat() {
-  console.log("🔧 Inicializando chat...");
+  logger.info("🔧 Inicializando chat...");
 
   const chatToggle = document.getElementById("chat-toggle");
   const chatWindow = document.getElementById("chat-window");
@@ -64,49 +65,79 @@ function initializeChat() {
   const chatSend = document.getElementById("chat-send");
 
   if (!chatToggle || !chatWindow) {
-    console.error("❌ Elementos do chat não encontrados no DOM");
+    logger.error("❌ Elementos do chat não encontrados no DOM");
     return;
   }
 
-  console.log("✅ Elementos do chat encontrados");
-
-  // Event Listeners
   chatToggle.addEventListener("click", () => {
+    const isOpening = !chatWindow.classList.contains("active");
     chatWindow.classList.toggle("active");
-    console.log("🎯 Chat toggle clicado");
+    
+    // CORREÇÃO: Atualizar aria-hidden baseado no estado
+    if (chatWindow.classList.contains("active")) {
+      chatWindow.setAttribute("aria-hidden", "false");
+      // Focar no input quando abrir
+      setTimeout(() => chatInput.focus(), 100);
+    } else {
+      chatWindow.setAttribute("aria-hidden", "true");
+    }
+    
+    // Adicionar/remover atributo inert para melhor acessibilidade
+    if (isOpening) {
+      chatWindow.removeAttribute("inert");
+    } else {
+      chatWindow.setAttribute("inert", "");
+    }
   });
 
   chatClose.addEventListener("click", () => {
     chatWindow.classList.remove("active");
+    chatWindow.setAttribute("aria-hidden", "true");
+    chatWindow.setAttribute("inert", "");
   });
 
   chatSend.addEventListener("click", sendMessage);
-
   chatInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") sendMessage();
   });
 
+  // Adicionar escape key para fechar o chat
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && chatWindow.classList.contains("active")) {
+      chatWindow.classList.remove("active");
+      chatWindow.setAttribute("aria-hidden", "true");
+      chatWindow.setAttribute("inert", "");
+      chatToggle.focus();
+    }
+  });
+
   chatToggle.classList.add("has-notification");
-  console.log("🚀 Chat inicializado com sucesso!");
+  logger.info("🚀 Chat inicializado com sucesso!");
 }
 
-// Enviar mensagem - CORRIGIDO
+// Enviar mensagem
+// Enviar mensagem
 async function sendMessage() {
   const chatInput = document.getElementById("chat-input");
   const chatSend = document.getElementById("chat-send");
   const message = chatInput.value.trim();
 
-  if (!message) return;
+  if (!message) {
+    logger.warn("⚠️ Tentativa de enviar mensagem vazia");
+    return;
+  }
 
-  addMessage(message, "user");
+  logger.info(`📤 Usuário enviou mensagem: "${message.substring(0, 50)}..."`);
+  addMessage(message, "user", false);
   chatInput.value = "";
   chatSend.disabled = true;
 
   const thinkingMsg = addMessage("💭 Analisando seus projetos...", "bot thinking");
 
   try {
-    console.log(`📤 Enviando para: ${API_BASE_URL}/chat`);
-    
+    logger.info(`🌐 Enviando requisição para: ${API_BASE_URL}/chat`);
+    logger.debug("📦 Payload:", { message });
+
     const response = await fetch(`${API_BASE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -117,58 +148,172 @@ async function sendMessage() {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("📩 Resposta da API:", data);
+      logger.success("✅ Resposta da API recebida com sucesso");
+      logger.debug("📩 Dados da resposta:", data);
 
-      addMessage(data.response || "Resposta recebida", "bot");
+      addMessage(data.response || "Resposta recebida", "bot", true);
 
       chatHistory.push({
         user: message,
         bot: data.response,
         timestamp: new Date().toISOString(),
       });
+      
+      logger.info("💾 Mensagem salva no histórico do chat");
     } else {
       const errorText = await response.text();
+      logger.error(`❌ Erro HTTP ${response.status}: ${errorText}`);
       throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
     }
   } catch (error) {
-    console.error("Erro detalhado no chat:", error);
+    logger.error("💥 Erro detalhado no chat:", error);
     thinkingMsg.remove();
 
     let errorMessage = "❌ Erro de conexão. ";
     if (error.message.includes("Failed to fetch")) {
       errorMessage += "Verifique se o servidor está rodando.";
+      logger.warn("🌐 Servidor possivelmente offline");
     } else if (error.message.includes("500")) {
-      errorMessage += "Erro interno do servidor. Verifique a API Key Gemini.";
+      errorMessage += "Erro interno do servidor.";
+      logger.error("⚡ Erro interno do servidor - verifique API Key Gemini");
     } else {
       errorMessage += error.message;
     }
-    
-    addMessage(errorMessage, "bot");
+
+    addMessage(errorMessage, "bot", false);
   } finally {
     chatSend.disabled = false;
+    logger.debug("🔄 Botão de enviar reativado");
   }
 }
 
-// Adicionar mensagem ao chat
-function addMessage(text, type) {
+// Adicionar mensagem ao chat (com suporte a Markdown)
+function addMessage(text, type, isMarkdown = false) {
   const chatMessages = document.getElementById("chat-messages");
   const messageDiv = document.createElement("div");
   messageDiv.className = `message ${type}`;
-  messageDiv.textContent = text;
+
+  logger.info(`🔧 Processando mensagem: type=${type}, isMarkdown=${isMarkdown}, length=${text.length}`);
+
+  if (isMarkdown && window.marked) {
+    try {
+      logger.info("🎯 Iniciando processamento Markdown...");
+      
+      // Configurações do marked para melhor renderização
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        sanitize: false
+      });
+
+      // Processar o Markdown
+      const htmlContent = marked.parse(text);
+      logger.success("✅ Markdown processado com sucesso");
+      logger.debug("📝 HTML gerado:", htmlContent.substring(0, 200) + "...");
+      
+      messageDiv.innerHTML = htmlContent;
+
+      // Adicionar target="_blank" para todos os links
+      const links = messageDiv.querySelectorAll('a');
+      links.forEach(link => {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
+      
+      logger.info(`🔗 ${links.length} links processados`);
+
+    } catch (error) {
+      logger.error('❌ Erro ao processar Markdown:', error);
+      // Fallback: mostrar texto simples
+      messageDiv.textContent = text;
+    }
+  } else if (isMarkdown && !window.marked) {
+    logger.warn("⚠️ Marked.js não disponível, usando fallback simples");
+    messageDiv.innerHTML = simpleMarkdownFallback(text);
+  } else {
+    logger.debug("📝 Mostrando como texto simples");
+    messageDiv.textContent = text;
+  }
+
   chatMessages.appendChild(messageDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   return messageDiv;
 }
 
+// Fallback para Markdown básico se marked não estiver disponível
+function simpleMarkdownFallback(text) {
+  logger.debug("🔄 Usando fallback Markdown simples");
+  return text
+    // Negrito
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Itálico  
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    // Links
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+    // Quebras de linha
+    .replace(/\n/g, '<br>')
+    // Títulos
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>');
+}
+
 // ===== INICIALIZAÇÃO GERAL =====
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("📄 DOM Carregado - Iniciando aplicação...");
-  console.log(`🌐 API URL: ${API_BASE_URL}`);
+  logger.info("📄 DOM Carregado - Iniciando aplicação...");
+  logger.info(`🌐 API URL: ${API_BASE_URL}`);
 
   loadProjects();
   updateDateTime();
   setInterval(updateDateTime, 1000);
   setTimeout(initializeChat, 500);
 
-  console.log("🎉 Aplicação inicializada com sucesso!");
+  logger.success("🎉 Aplicação inicializada com sucesso!");
+
+// Debug da inicialização
+function checkDependencies() {
+  logger.info("🔍 Verificando dependências do sistema:");
+  logger.info(`🌐 API URL: ${API_BASE_URL}`);
+  logger.success("✅ Font Awesome carregado:", !!document.querySelector('.fa-robot'));
+  logger.success("✅ Marked carregado:", !!window.marked);
+  
+  // Teste do Marked se estiver disponível
+  if (window.marked) {
+    const testResult = marked.parse("**Teste** de *Markdown*");
+    logger.success("✅ Marked.js funcionando:", testResult.includes('<strong>'));
+  } else {
+    logger.error("❌ Marked.js não carregado");
+  }
+  
+  const chatElements = {
+    toggle: !!document.getElementById('chat-toggle'),
+    window: !!document.getElementById('chat-window'),
+    messages: !!document.getElementById('chat-messages'),
+    input: !!document.getElementById('chat-input')
+  };
+  
+  logger.debug("🎯 Elementos do chat:", chatElements);
+  
+  const allElementsLoaded = Object.values(chatElements).every(Boolean);
+  if (allElementsLoaded) {
+    logger.success("✅ Todos os elementos do chat carregados");
+  } else {
+    logger.error("❌ Alguns elementos do chat não foram encontrados");
+  }
+}
+
+// Chame esta função no final do DOMContentLoaded
+document.addEventListener("DOMContentLoaded", function () {
+  logger.info("📄 DOM Carregado - Iniciando aplicação...");
+  
+  loadProjects();
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+  setTimeout(initializeChat, 500);
+  
+  // Debug
+  setTimeout(checkDependencies, 1000);
+  
+  logger.success("🎉 Aplicação inicializada com sucesso!");
+});
 });

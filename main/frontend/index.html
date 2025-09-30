@@ -1,64 +1,73 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" /> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Meus Desafios DNC - Daniel Eloy</title>
-</head>
-<body>
+    <link rel="stylesheet" href="./style.css" />
+    
+    <!-- CORREÇÃO: Font Awesome como CSS, não JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.4.12/marked.min.js" defer> </script>
+  </head>
+
+  <body>
     <div class="container">
-        <header>
-            <h1><i class="fas fa-laptop-code"></i> Daniel Eloy</h1>
-            <p class="subtitle">
-                Esta página lista todos os meus projetos e desafios do curso DNC.
-            </p>
-            <div class="update-info">
-                <p><i class="fas fa-sync-alt"></i> Última atualização: <span id="last-updated"></span></p>
-            </div>
-        </header>
-
-        <div class="projects-grid" id="projects-container">
-            <!-- Projetos carregados via JavaScript -->
+      <header>
+        <h1><i class="fas fa-laptop-code"></i> Daniel Eloy</h1>
+        <p class="subtitle">
+          Esta página lista todos os meus projetos e desafios do curso DNC.
+        </p>
+        <div class="update-info">
+          <p>
+            <i class="fas fa-sync-alt"></i> Última atualização:
+            <span id="last-updated"></span>
+          </p>
         </div>
+      </header>
 
-        <footer>
-            <p>Desenvolvido com ❤️ para apresentar meus projetos DNC</p>
-            <div class="last-updated">
-                <i class="fas fa-clock"></i> Página gerada em: <span id="current-time"></span>
-            </div>
-        </footer>
+      <div class="projects-grid" id="projects-container"></div>
+
+      <footer>
+        <p>Desenvolvido com ❤️ para apresentar meus projetos DNC</p>
+        <div class="last-updated">
+          <i class="fas fa-clock"></i> Página gerada em:
+          <span id="current-time"></span>
+        </div>
+      </footer>
     </div>
 
-    <!-- === CHATBOT === -->
-    <div id="chat-toggle" class="chat-toggle">
-        <i class="fas fa-robot"></i>
-    </div>
+    <!-- CHAT -->
+    <!-- CORREÇÃO: Ícone do bot visível -->
+    <div id="chat-toggle" class="chat-toggle"><i class="fas fa-robot"></i></div>
 
-    <div id="chat-window" class="chat-window">
-        <div class="chat-header">
-            <h3><i class="fas fa-robot"></i> Assistente Deloy Bot</h3>
-            <button id="chat-close" class="chat-close">
-                <i class="fas fa-times"></i>
-            </button>
+    <div id="chat-window" class="chat-window" >
+      <div class="chat-header">
+        <h3><i class="fas fa-robot"></i> Assistente Deloy Bot</h3>
+        <button id="chat-close" class="chat-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages"></div>
+
+      <div class="chat-input-area">
+        <div class="chat-input-container">
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="Pergunte sobre os projetos do Daniel Eloy..."
+            maxlength="500"
+          />
+          <button id="chat-send" class="chat-send">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
-        
-        <div id="chat-messages" class="chat-messages"></div>
-        
-        <div class="chat-input-area">
-            <div class="chat-input-container">
-                <input type="text" id="chat-input" placeholder="Pergunte sobre os projetos do Daniel Eloy..." maxlength="500">
-                <button id="chat-send" class="chat-send">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-            <div class="chat-tips">
-                <small>Exemplo: "Qual projeto usou React?"</small>
-            </div>
+        <div class="chat-tips">
+          <small>Ex.: "Qual projeto usou React?"</small>
         </div>
+      </div>
     </div>
-    <script src="./JS/index.js" defer></script>
-</body>
+    <script type="module" src="./js/index.js"></script>
+  </body>
 </html>
