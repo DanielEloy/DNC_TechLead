@@ -1,17 +1,80 @@
-# cd "C:\Users\Daniel Eloy\DNC\Desafios\DNC_TechLead\Desafio04\React_com_JavaScript\RID183995_Desafio04"
+# ⚛️ Projeto React com Vite
 
-base no figma para o projeto:
-https://www.figma.com/design/lzYMhJKI4i7geTOviicb0o/Projeto-React?node-id=0-1&t=vhVYrs3wmPaamWI0-0
+Este é o **Desafio 04** do módulo TechLead da DNC, desenvolvido com **React + Vite**.  
+O design da aplicação foi baseado no **[Figma do projeto](https://www.figma.com/design/lzYMhJKI4i7geTOviicb0o/Projeto-React?node-id=0-1&t=vhVYrs3wmPaamWI0-0)**.
 
-# React + Vite
+🔗 Deploy em breve no Netlify/Vercel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## 📂 Estrutura do Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+Desafio04/
+│── public/
+│── src/
+│   ├── assets/        # Imagens e ícones
+│   ├── components/    # Componentes reutilizáveis
+│   ├── pages/         # Páginas da aplicação
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+│── .eslintrc.cjs
+│── vite.config.js
+│── package.json
+│── README.md
+```
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Tecnologias Utilizadas
+
+- **React 18**
+- **Vite**
+- **JavaScript (ES6+)**
+- **CSS Modules / TailwindCSS (se aplicado)**
+- **ESLint + Prettier**
+- **Netlify / Vercel** (deploy)
+
+---
+
+## ⚙️ Funcionalidades
+
+- ⚡ Ambiente otimizado com **Vite + HMR**
+- 🧩 Componentização avançada
+- 🎨 Interface desenvolvida a partir do **Figma**
+- ✅ Boas práticas com **ESLint**
+- 🌐 Deploy contínuo (CI/CD)
+
+---
+
+## 📸 Layout do Projeto
+
+O layout base pode ser acessado no [Figma](https://www.figma.com/design/lzYMhJKI4i7geTOviicb0o/Projeto-React?node-id=0-1&t=vhVYrs3wmPaamWI0-0).  
+
+---
+
+## ▶️ Como rodar o projeto localmente
+
+```bash
+# Clone este repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
+
+# Acesse a pasta do projeto
+cd Desafio04
+
+# Instale as dependências
+npm install
+
+# Rode o servidor local
+npm run dev
+```
+
+Depois acesse **http://localhost:5173/** no navegador 🚀
+
+---
+
+## 📝 Licença
+
+Este projeto foi desenvolvido para fins educacionais no curso **DNC TechLead**.

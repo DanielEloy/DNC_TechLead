@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# ⚛️ Projeto React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o **Desafio 05** do módulo TechLead da DNC, desenvolvido com **React, TypeScript e Vite**.  
+O foco foi aplicar **boas práticas de tipagem**, **ESLint avançado** e **componentização**.
 
-Currently, two official plugins are available:
+🔗 [Confira o projeto online](https://dnc-desafio04.netlify.app/)  
+💻 [Código-fonte no GitHub](https://github.com/DanielEloy/DNC_TechLead/tree/main/Desafio05/Node_js_com_TypeScript/RID183995_Desafio05)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Estrutura do Projeto
+```
+Desafio05/
+│── public/
+│── src/
+│ ├── assets/ # Imagens e ícones
+│ ├── components/ # Componentes reutilizáveis
+│ ├── pages/ # Páginas da aplicação
+│ ├── App.tsx
+│ ├── main.tsx
+│ └── index.css
+│
+│── .eslintrc.cjs
+│── tsconfig.json
+│── vite.config.ts
+│── package.json
+│── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Tecnologias Utilizadas
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 18**
+- **Vite**
+- **TypeScript**
+- **ESLint + Plugins Avançados**
+- **Netlify / Vercel** (deploy)
+
+---
+
+## ⚙️ Funcionalidades
+
+- ⚡ Ambiente otimizado com **Vite + HMR**
+- 🧩 Componentização avançada
+- 🛡️ Tipagem estática com **TypeScript**
+- ✅ Regras de lint específicas para **React + TypeScript**
+- 🎨 Estrutura preparada para projetos profissionais
+
+---
+
+## 📸 Layout do Projeto
+
+O layout base pode ser acessado no [Deploy Online](https://dnc-desafio04.netlify.app/).
+
+---
+
+## ▶️ Como rodar o projeto localmente
+
+```bash
+# Clone este repositório
+git clone https://github.com/DanielEloy/DNC_TechLead.git
+
+# Acesse a pasta do projeto
+cd Desafio05/Node_js_com_TypeScript/RID183995_Desafio05
+
+# Instale as dependências
+npm install
+
+# Rode o servidor local
+npm run dev
 ```
+
+### Depois acesse http://localhost:5173/ no navegador 🚀
+
+#### 📝 Licença
+
+***Este projeto foi desenvolvido para fins educacionais no curso DNC TechLead.***

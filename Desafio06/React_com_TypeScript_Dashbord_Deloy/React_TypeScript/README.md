@@ -1,36 +1,92 @@
-# User Test
-Login: daniel@dnc.com
-Password: @DNCReact178#
+# 📊 Dashboard em React + TypeScript
 
-# Getting Started
+Este é o **Desafio 06** do módulo TechLead da DNC, desenvolvido com **React, TypeScript e Vite**.  
+O objetivo foi criar um **Dashboard interativo** com autenticação de usuário e componentes dinâmicos.
 
-Clone the repository and install dependencies:
+🔗 [Código-fonte no GitHub](https://github.com/DanielEloy/DNC_TechLead/tree/main/Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript)
 
-```git
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-npm install
-# or
-yarn install
+---
+
+## 👤 User Test
+
+Para acessar o sistema, utilize as credenciais abaixo:
+
+- **Login:** `daniel@dnc.com`  
+- **Senha:** `@DNCReact178#`  
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+Desafio06/
+│── public/
+│── src/
+│ ├── assets/ # Imagens e ícones
+│ ├── components/ # Componentes reutilizáveis
+│ ├── pages/ # Páginas do dashboard
+│ ├── App.tsx
+│ ├── main.tsx
+│ └── index.css
+│
+│── .eslintrc.cjs
+│── tsconfig.json
+│── vite.config.ts
+│── package.json
+│── README.md
 ```
 
-# Running the App
+---
 
-Start the development server:
+## 🚀 Tecnologias Utilizadas
 
-```git
+- **React 18**
+- **Vite**
+- **TypeScript**
+- **ESLint + Prettier**
+- **Netlify / Vercel** (deploy)
+
+---
+
+## ⚙️ Funcionalidades
+
+- 🔐 **Autenticação de usuário** com login e senha
+- 📊 **Dashboard dinâmico** com gráficos e métricas
+- 🧩 **Componentização reutilizável**
+- ⚡ Ambiente otimizado com **Vite + HMR**
+- ✅ Tipagem estática com **TypeScript**
+
+---
+
+## ▶️ Como rodar o projeto localmente
+
+```bash
+# Clone este repositório
+git clone https://github.com/DanielEloy/DNC_TechLead.git
+
+# Acesse a pasta do projeto
+cd Desafio06/React_com_TypeScript_Dashbord_Deloy/React_TypeScript
+
+# Instale as dependências
+npm install
+# ou
+yarn install
+
+# Rode o servidor local
 npm run dev
-# or
+# ou
 yarn dev
 ```
 
-# Building for Production
+### Depois acesse http://localhost:5173/ no navegador 🚀
 
-Start the development server:
-
-```git
+#### 🏗️ Build para Produção
+```bash
 npm run build
-# or
+# ou
 yarn build
 ```
 
+#### 📝 Licença
+
+Este projeto foi desenvolvido para fins educacionais no curso DNC TechLead.

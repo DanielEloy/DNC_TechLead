@@ -10,13 +10,6 @@ function ordenarPorPrioridade() {
   listaDeTarefas.sort((a, b) => a.prioridade - b.prioridade);
 }
 
-// Conta quantas tarefas estão pendentes utilizando filter
-// Esta função percorre o array e conta quantas tarefas têm status "pendente"
-
-/* function contarpendentes() {
-//   return listadetarefas.filter(tarefa => tarefa.status === "pendente").length;
- }*/
-
 // Conta quantas tarefas estão pendentes
 function contarPendentes() {
   return listaDeTarefas.reduce((total, tarefa) => tarefa.status === "pendente" ? total + 1 : total, 0);
@@ -54,26 +47,11 @@ function todasConcluidas() {
   return listaDeTarefas.every(tarefa => tarefa.status === "concluída");
 }
 
-//Marcar todas as tarefas como concluídas
-const marcarTodasConcluidas = () => {
+// Marcar todas as tarefas como concluídas
+function marcarTodasConcluidas() {
   listaDeTarefas = listaDeTarefas
     .map(tarefa => ({ ...tarefa, status: "concluída" }))
     .sort((a, b) => a.prioridade - b.prioridade); // Ordena por prioridade 1, 2, 3...
-};
-
-// const marcarTodasConcluidas = listaDeTarefas.map(tarefa => ({ ...tarefa, status: "concluída" }));
-
-//Contar Tarefas Pendentes
-const tarefasPendentes = listaDeTarefas.filter(tarefa => tarefa.status === "pendente").length;
-console.log(`Tarefas pendentes: ${tarefasPendentes}`);
-
-function encontrarTarefa(nome) {
-  return listaDeTarefas.find(tarefa => tarefa.nome === nome);
-}
-
-// Verifica se todas as tarefas estão concluídas
-function todasConcluidas() {
-  return listaDeTarefas.every(tarefa => tarefa.status === "concluída");
 }
 
 // Exemplo de uso de Promises para buscar dados
@@ -87,10 +65,43 @@ function buscarDados() {
       } else {
         reject("Erro ao buscar dados.");
       }
-    }, 5000); //5 segundos de espera para simular uma operação assíncrona
+    }, 2000); // 2 segundos de espera para simular uma operação assíncrona
   });
 }
 
+// Exemplo de uso:
+console.log("=== LISTA DE TAREFAS ===");
+console.log("Lista Inicial:", listaDeTarefas);
+
+console.log("\n=== BUSCAR TAREFA ===");
+const tarefaEncontrada = encontrarTarefa("Estudar JavaScript");
+console.log("Tarefa encontrada:", tarefaEncontrada);
+
+console.log("\n=== ADICIONAR TAREFA ===");
+adicionarTarefa("Fazer compras", 2);
+console.log("Após adicionar nova tarefa:", listaDeTarefas);
+
+console.log("\n=== MARCAR TAREFA COMO CONCLUÍDA ===");
+marcarComoConcluida("Fazer exercício");
+console.log("Após marcar 'Fazer exercício' como concluída:", listaDeTarefas);
+
+console.log("\n=== CONTAR PENDENTES ===");
+console.log("Total de tarefas pendentes:", contarPendentes());
+
+console.log("\n=== REMOVER TAREFAS CONCLUÍDAS ===");
+removerConcluidas();
+console.log("Após remover concluídas:", listaDeTarefas);
+
+console.log("\n=== VERIFICAR SE TODAS ESTÃO CONCLUÍDAS ===");
+console.log("Todas as tarefas estão concluídas?", todasConcluidas());
+
+console.log("\n=== MARCAR TODAS COMO CONCLUÍDAS ===");
+marcarTodasConcluidas();
+console.log("Após marcar todas como concluídas:", listaDeTarefas);
+console.log("Todas as tarefas estão concluídas?", todasConcluidas());
+
+console.log("\n=== BUSCA ASSÍNCRONA ===");
+// Usando a Promise
 buscarDados()
   .then(resultado => {
     console.log(resultado);
@@ -99,30 +110,6 @@ buscarDados()
     console.error(erro);
   });
 
-// Exemplo de uso:
-console.log("Lista Inicial:", listaDeTarefas); // Exibe a lista inicial de tarefas
-
-const tarefa = encontrarTarefa("Comprar pão");
-console.log(tarefa);
-
-adicionarTarefa("Fazer compras", 2); // Adiciona uma nova tarefa à lista
-console.log("Após adicionar nova tarefa:", listaDeTarefas); // Exibe a lista após adicionar
-
-marcarComoConcluida("Fazer exercício"); // Marca a tarefa "Fazer exercício" como concluída
-console.log("Após marcar como concluída:", listaDeTarefas); // Exibe a lista após marcar como concluída
-
-removerConcluidas(); // Remove todas as tarefas concluídas da lista
-console.log("Após remover concluídas:", listaDeTarefas); // Exibe a lista final
-
-contarPendentes = () // Função para contar tarefas pendentes
-
-console.log("Conta quantas tarefas estão pendentes:", listaDeTarefas); // Exibe a lista após a contagem final
-
-console.log("Total de tarefas pendentes:", contarPendentes()); // Exibe o total de tarefas pendentes
-
-console.log("Lista ordenada por prioridade:"); // Exibe a lista ordenada por prioridade
-
-console.log(encontrarTarefa("Fazer compras")); // Exibe a tarefa encontrada pela descrição
-
-todasConcluidas(); // Verifica se todas as tarefas estão concluídas
-console.log("Todas as tarefas estão concluídas?", todasConcluidas());
+console.log("\n=== ESTADO FINAL ===");
+console.log("Lista final ordenada por prioridade:", listaDeTarefas);
+console.log("Total de tarefas pendentes:", contarPendentes());
