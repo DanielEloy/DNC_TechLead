@@ -2,13 +2,13 @@
 import { logger } from "../../utils/logger";
 import { marked } from "marked";
 
-// ===== CONFIGURAÇÃO CORRIGIDA DA API =====
-const isLocalhost = window.location.hostname === "localhost" || 
-                    window.location.hostname === "127.0.0.1";
+// ===== CONFIGURAÇÃO DA API =====
+const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
-const API_BASE_URL = isLocalhost 
-  ? "http://localhost:10000/api" 
+const API_BASE_URL = isLocal
+  ? "http://localhost:5000/api"
   : "https://dnc-chat-backend.onrender.com/api";
+
 
 // ===== SISTEMA PRINCIPAL =====
 let projectsData = { projects: [] };
