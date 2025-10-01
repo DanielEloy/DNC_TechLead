@@ -12,7 +12,7 @@ let projectsData = { projects: [] };
 // Carregar projetos
 async function loadProjects() {
   try {
-    const response = await fetch("../../projects.json");
+    const response = await fetch("/projects.json");
     const data = await response.json();
     projectsData.projects = data.projects;
     renderProjects();
