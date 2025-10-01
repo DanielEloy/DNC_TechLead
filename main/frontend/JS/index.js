@@ -2,9 +2,12 @@
 import { logger } from "../../utils/logger";
 import { marked } from "marked";
 
-// ===== CONFIGURAÇÃO DA API =====
-const API_BASE_URL = window.location.hostname === "localhost" 
-  ? "http://127.0.0.1:5000/api" 
+// ===== CONFIGURAÇÃO CORRIGIDA DA API =====
+const isLocalhost = window.location.hostname === "localhost" || 
+                    window.location.hostname === "127.0.0.1";
+
+const API_BASE_URL = isLocalhost 
+  ? "http://localhost:10000/api" 
   : "https://dnc-chat-backend.onrender.com/api";
 
 // ===== SISTEMA PRINCIPAL =====
