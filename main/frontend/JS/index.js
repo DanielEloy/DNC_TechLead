@@ -1,5 +1,6 @@
 // JS/index.js
 import { logger } from "../../utils/logger";
+import { marked } from "marked";
 
 // ===== CONFIGURAÇÃO DA API =====
 const API_BASE_URL = window.location.hostname === "localhost" 
@@ -194,7 +195,7 @@ function addMessage(text, type, isMarkdown = false) {
 
   logger.info(`🔧 Processando mensagem: type=${type}, isMarkdown=${isMarkdown}, length=${text.length}`);
 
-  if (isMarkdown && window.marked) {
+  if (isMarkdown && marked) {
     try {
       logger.info("🎯 Iniciando processamento Markdown...");
       
@@ -226,7 +227,7 @@ function addMessage(text, type, isMarkdown = false) {
       // Fallback: mostrar texto simples
       messageDiv.textContent = text;
     }
-  } else if (isMarkdown && !window.marked) {
+  } else if (isMarkdown && !marked) {
     logger.warn("⚠️ Marked.js não disponível, usando fallback simples");
     messageDiv.innerHTML = simpleMarkdownFallback(text);
   } else {
@@ -277,11 +278,14 @@ function checkDependencies() {
   logger.success("✅ Marked carregado:", !!window.marked);
   
   // Teste do Marked se estiver disponível
-  if (window.marked) {
+  logger.success("✅ Marked importado:", typeof marked === "function");
+
+  // Teste do Marked se estiver disponível
+  try {
     const testResult = marked.parse("**Teste** de *Markdown*");
     logger.success("✅ Marked.js funcionando:", testResult.includes('<strong>'));
-  } else {
-    logger.error("❌ Marked.js não carregado");
+  } catch (err) {
+    logger.error("❌ Erro ao testar Marked.js:", err);
   }
   
   const chatElements = {
