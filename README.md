@@ -2,8 +2,6 @@
 
 DNC TechLead é um repositório criado para organizar e compartilhar desafios, soluções e materiais de estudo relacionados à trilha de Tech Lead da DNC.
 
-## Estrutura do Projeto
-
 
 ## Como Usar
 

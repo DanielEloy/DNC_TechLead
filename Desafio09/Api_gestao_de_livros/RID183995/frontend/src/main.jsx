@@ -1,15 +1,13 @@
 /* src\main.jsx */
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import './index.scss';
-import Home from './views/Home/Home';
-import Livros from './views/Livros/Livros';
-import LivrosCadastro from './views/LivrosCadastro/LivrosCadastro';
-import LivrosEdicao from './views/LivrosEdicao/LivrosEdicao';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.scss";
+import Home from "./views/Home/Home.jsx";
+import Livros from "./views/Livros/Livros.jsx";
+import LivrosCadastro from "./views/LivrosCadastro/LivrosCadastro.jsx";
+import LivrosEdicao from "./views/LivrosEdicao/LivrosEdicao.jsx";
+import TestConnection from "./components/TestConnection/TestConnection.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/livros",
-    element: <Livros/>,
+    element: <Livros />,
   },
   {
     path: "/livros/cadastro",
@@ -30,8 +28,9 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <TestConnection />
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

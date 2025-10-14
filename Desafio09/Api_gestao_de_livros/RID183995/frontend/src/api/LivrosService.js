@@ -1,7 +1,7 @@
-// frontend/src/api/LivrosService.js
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:3000/api"; // ← Alterado para 127.0.0.1
+// APENAS ESTA LINHA MUDA - substitua pela sua URL do Railway
+const BASE_URL = "https://backend-biblioteca-production.up.railway.app/api";
 
 export class LivrosService{
     static getLivros(){
